@@ -1,0 +1,391 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'sqlite' ]
+2 info using npm@1.2.15
+3 info using node@v0.10.1
+4 verbose read json /home/pi/sockettest/package.json
+5 warn package.json application-name@0.0.1 No README.md file found!
+6 verbose read json /home/pi/sockettest/node_modules/bindings/package.json
+7 verbose read json /home/pi/sockettest/node_modules/ejs/package.json
+8 verbose read json /home/pi/sockettest/node_modules/express/package.json
+9 verbose read json /home/pi/sockettest/node_modules/socket.io/package.json
+10 verbose read json /home/pi/sockettest/node_modules/spi/package.json
+11 verbose read json /home/pi/sockettest/node_modules/tinycolor2/package.json
+12 verbose from cache /home/pi/sockettest/package.json
+13 verbose readDependencies using package.json deps
+14 verbose cache add [ 'sqlite', null ]
+15 verbose cache add name=undefined spec="sqlite" args=["sqlite",null]
+16 verbose parsed url { protocol: null,
+16 verbose parsed url   slashes: null,
+16 verbose parsed url   auth: null,
+16 verbose parsed url   host: null,
+16 verbose parsed url   port: null,
+16 verbose parsed url   hostname: null,
+16 verbose parsed url   hash: null,
+16 verbose parsed url   search: null,
+16 verbose parsed url   query: null,
+16 verbose parsed url   pathname: 'sqlite',
+16 verbose parsed url   path: 'sqlite',
+16 verbose parsed url   href: 'sqlite' }
+17 silly lockFile 6d64a5ee-sqlite sqlite
+18 verbose lock sqlite /home/pi/.npm/6d64a5ee-sqlite.lock
+19 silly lockFile 6d64a5ee-sqlite sqlite
+20 silly lockFile 6d64a5ee-sqlite sqlite
+21 verbose addNamed [ 'sqlite', '' ]
+22 verbose addNamed [ null, '' ]
+23 silly lockFile 02179a0b-sqlite sqlite@
+24 verbose lock sqlite@ /home/pi/.npm/02179a0b-sqlite.lock
+25 silly addNameRange { name: 'sqlite', range: '', hasData: false }
+26 verbose url raw sqlite
+27 verbose url resolving [ 'https://registry.npmjs.org/', './sqlite' ]
+28 verbose url resolved https://registry.npmjs.org/sqlite
+29 info trying registry request attempt 1 at 20:18:25
+30 http GET https://registry.npmjs.org/sqlite
+31 http 200 https://registry.npmjs.org/sqlite
+32 silly registry.get cb [ 200,
+32 silly registry.get   { vary: 'Accept',
+32 silly registry.get     server: 'CouchDB/1.3.0 (Erlang OTP/R15B03)',
+32 silly registry.get     etag: '"28MTO6USCRH4VL0PFE0SVMXGA"',
+32 silly registry.get     date: 'Tue, 28 May 2013 02:18:26 GMT',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'content-length': '3805' } ]
+33 silly addNameRange number 2 { name: 'sqlite', range: '', hasData: true }
+34 silly addNameRange versions [ 'sqlite', [ '1.0.2', '1.0.3', '1.0.4' ] ]
+35 verbose addNamed [ 'sqlite', '1.0.4' ]
+36 verbose addNamed [ '1.0.4', '1.0.4' ]
+37 silly lockFile f07a2cfe-sqlite-1-0-4 sqlite@1.0.4
+38 verbose lock sqlite@1.0.4 /home/pi/.npm/f07a2cfe-sqlite-1-0-4.lock
+39 silly lockFile 2addb338-pmjs-org-sqlite-sqlite-1-0-4-tgz https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz
+40 verbose lock https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz /home/pi/.npm/2addb338-pmjs-org-sqlite-sqlite-1-0-4-tgz.lock
+41 verbose addRemoteTarball [ 'https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz',
+41 verbose addRemoteTarball   '046d07908f37ec306723b4d347e6e1a8f4cce98e' ]
+42 info retry fetch attempt 1 at 20:18:26
+43 verbose fetch to= /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+44 http GET https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz
+45 http 200 https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz
+46 silly shasum updated bytes 65536
+47 silly shasum updated bytes 65536
+48 silly shasum updated bytes 65536
+49 silly shasum updated bytes 65536
+50 silly shasum updated bytes 65536
+51 silly shasum updated bytes 65536
+52 silly shasum updated bytes 65536
+53 silly shasum updated bytes 65536
+54 silly shasum updated bytes 65536
+55 silly shasum updated bytes 65536
+56 silly shasum updated bytes 65536
+57 silly shasum updated bytes 65536
+58 silly shasum updated bytes 65536
+59 silly shasum updated bytes 65536
+60 silly shasum updated bytes 65536
+61 silly shasum updated bytes 65536
+62 silly shasum updated bytes 65536
+63 silly shasum updated bytes 65536
+64 silly shasum updated bytes 65536
+65 silly shasum updated bytes 37585
+66 info shasum 046d07908f37ec306723b4d347e6e1a8f4cce98e
+66 info shasum /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+67 verbose tar unpack /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+68 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+69 verbose lock /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package /home/pi/.npm/53959fd4-6751-0-23122433852404356-package.lock
+70 silly lockFile 8e3db675-6751-0-23122433852404356-tmp-tgz /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+71 verbose lock /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz /home/pi/.npm/8e3db675-6751-0-23122433852404356-tmp-tgz.lock
+72 silly gunzTarPerm modes [ '755', '644' ]
+73 silly gunzTarPerm extractEntry
+74 silly gunzTarPerm extractEntry .gitignore
+75 silly gunzTarPerm extractEntry .gitmodules
+76 silly gunzTarPerm extractEntry async-testing/
+77 silly gunzTarPerm extractEntry build.sh
+78 silly gunzTarPerm extractEntry deps/
+79 silly gunzTarPerm extractEntry package.json
+80 silly gunzTarPerm extractEntry README.md
+81 silly gunzTarPerm extractEntry run-tests
+82 silly gunzTarPerm extractEntry sqlite.js
+83 silly gunzTarPerm extractEntry sqlite3_bindings.node
+84 silly gunzTarPerm extractEntry src/
+85 silly gunzTarPerm extractEntry tests/
+86 silly gunzTarPerm extractEntry wscript
+87 silly gunzTarPerm extractEntry tests/lib/
+88 silly gunzTarPerm extractEntry tests/old/
+89 silly gunzTarPerm extractEntry tests/test-affected-rows.js
+90 silly gunzTarPerm extractEntry tests/test-bind-placeholders.js
+91 silly gunzTarPerm extractEntry tests/test-bind-strings.js
+92 silly gunzTarPerm extractEntry tests/test-last-inserted-id.js
+93 silly gunzTarPerm extractEntry tests/test-prepare.js
+94 silly gunzTarPerm extractEntry tests/test-statement-fetchall.js
+95 silly gunzTarPerm extractEntry tests/test-statement-step.js
+96 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel-binds.js
+97 warn excluding symbolic link sqlite3_bindings.node -> build/default/sqlite3_bindings.node
+98 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel.js
+99 silly gunzTarPerm extractEntry tests/old/speedtest-low.js
+100 silly gunzTarPerm extractEntry tests/old/speedtest.js
+101 silly gunzTarPerm extractEntry tests/old/speedtest.rb
+102 silly gunzTarPerm extractEntry tests/old/speedtest2.js
+103 silly gunzTarPerm extractEntry tests/old/speedtest2.rb
+104 silly gunzTarPerm extractEntry tests/old/test2.js
+105 silly gunzTarPerm extractEntry tests/lib/common.js
+106 silly gunzTarPerm extractEntry src/database.cc
+107 silly gunzTarPerm extractEntry src/database.h
+108 silly gunzTarPerm extractEntry src/sqlite3_bindings.cc
+109 silly gunzTarPerm extractEntry src/sqlite3_bindings.h
+110 silly gunzTarPerm extractEntry src/statement.cc
+111 silly gunzTarPerm extractEntry src/statement.h
+112 silly gunzTarPerm extractEntry deps/mpool-2.1.0/
+113 silly gunzTarPerm extractEntry deps/sqlite/
+114 silly gunzTarPerm extractEntry deps/sqlite/._shell.c
+115 silly gunzTarPerm extractEntry deps/sqlite/shell.c
+116 silly gunzTarPerm extractEntry deps/sqlite/._sqlite3.c
+117 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.c
+118 silly gunzTarPerm extractEntry deps/sqlite/._sqlite3.h
+119 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.h
+120 silly gunzTarPerm extractEntry deps/sqlite/._sqlite3ext.h
+121 silly gunzTarPerm extractEntry deps/sqlite/sqlite3ext.h
+122 silly gunzTarPerm extractEntry deps/mpool-2.1.0/ChangeLog.1
+123 silly gunzTarPerm extractEntry deps/mpool-2.1.0/Makefile
+124 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.c
+125 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.h
+126 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_loc.h
+127 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_t.c
+128 silly gunzTarPerm extractEntry deps/mpool-2.1.0/NEWS
+129 silly gunzTarPerm extractEntry deps/mpool-2.1.0/README
+130 silly gunzTarPerm extractEntry async-testing/async_testing.js
+131 silly gunzTarPerm extractEntry async-testing/AUTHORS
+132 silly gunzTarPerm extractEntry async-testing/examples/
+133 silly gunzTarPerm extractEntry async-testing/LICENSE
+134 silly gunzTarPerm extractEntry async-testing/node-async-test
+135 silly gunzTarPerm extractEntry async-testing/README.markdown
+136 silly gunzTarPerm extractEntry async-testing/todo.txt
+137 silly gunzTarPerm extractEntry async-testing/examples/test-readme.js
+138 silly gunzTarPerm extractEntry async-testing/examples/test-suites.js
+139 verbose read json /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package/package.json
+140 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+141 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+142 silly lockFile 8e3db675-6751-0-23122433852404356-tmp-tgz /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+143 silly lockFile 8e3db675-6751-0-23122433852404356-tmp-tgz /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/tmp.tgz
+144 verbose from cache /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package/package.json
+145 verbose tar pack [ '/home/pi/.npm/sqlite/1.0.4/package.tgz',
+145 verbose tar pack   '/home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package' ]
+146 verbose tarball /home/pi/.npm/sqlite/1.0.4/package.tgz
+147 verbose folder /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+148 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+149 verbose lock /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package /home/pi/.npm/53959fd4-6751-0-23122433852404356-package.lock
+150 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+151 verbose lock /home/pi/.npm/sqlite/1.0.4/package.tgz /home/pi/.npm/2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz.lock
+152 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+153 silly lockFile 53959fd4-6751-0-23122433852404356-package /home/pi/tmp/npm-2639/1369707506751-0.23122433852404356/package
+154 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+155 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+156 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+157 verbose lock /home/pi/.npm/sqlite/1.0.4/package /home/pi/.npm/bde57341-home-pi-npm-sqlite-1-0-4-package.lock
+158 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+159 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+160 verbose tar unpack /home/pi/.npm/sqlite/1.0.4/package.tgz
+161 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+162 verbose lock /home/pi/.npm/sqlite/1.0.4/package /home/pi/.npm/bde57341-home-pi-npm-sqlite-1-0-4-package.lock
+163 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+164 verbose lock /home/pi/.npm/sqlite/1.0.4/package.tgz /home/pi/.npm/2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz.lock
+165 silly gunzTarPerm modes [ '755', '644' ]
+166 silly gunzTarPerm extractEntry package.json
+167 silly gunzTarPerm extractEntry .npmignore
+168 silly gunzTarPerm extractEntry README.md
+169 silly gunzTarPerm extractEntry sqlite.js
+170 silly gunzTarPerm extractEntry async-testing/LICENSE
+171 silly gunzTarPerm extractEntry async-testing/async_testing.js
+172 silly gunzTarPerm extractEntry async-testing/AUTHORS
+173 silly gunzTarPerm extractEntry async-testing/README.markdown
+174 silly gunzTarPerm extractEntry async-testing/examples/test-readme.js
+175 silly gunzTarPerm extractEntry async-testing/examples/test-suites.js
+176 silly gunzTarPerm extractEntry async-testing/node-async-test
+177 silly gunzTarPerm extractEntry async-testing/todo.txt
+178 silly gunzTarPerm extractEntry build.sh
+179 silly gunzTarPerm extractEntry deps/mpool-2.1.0/README
+180 silly gunzTarPerm extractEntry deps/mpool-2.1.0/ChangeLog.1
+181 silly gunzTarPerm extractEntry deps/mpool-2.1.0/Makefile
+182 silly gunzTarPerm extractEntry deps/mpool-2.1.0/NEWS
+183 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.c
+184 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.h
+185 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_loc.h
+186 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_t.c
+187 silly gunzTarPerm extractEntry deps/sqlite/shell.c
+188 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.c
+189 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.h
+190 silly gunzTarPerm extractEntry deps/sqlite/sqlite3ext.h
+191 silly gunzTarPerm extractEntry .gitmodules
+192 silly gunzTarPerm extractEntry run-tests
+193 silly gunzTarPerm extractEntry src/database.cc
+194 silly gunzTarPerm extractEntry src/database.h
+195 silly gunzTarPerm extractEntry src/sqlite3_bindings.cc
+196 silly gunzTarPerm extractEntry src/sqlite3_bindings.h
+197 silly gunzTarPerm extractEntry src/statement.cc
+198 silly gunzTarPerm extractEntry src/statement.h
+199 silly gunzTarPerm extractEntry tests/test-affected-rows.js
+200 silly gunzTarPerm extractEntry tests/test-bind-placeholders.js
+201 silly gunzTarPerm extractEntry tests/test-bind-strings.js
+202 silly gunzTarPerm extractEntry tests/test-last-inserted-id.js
+203 silly gunzTarPerm extractEntry tests/test-prepare.js
+204 silly gunzTarPerm extractEntry tests/test-statement-fetchall.js
+205 silly gunzTarPerm extractEntry tests/test-statement-step.js
+206 silly gunzTarPerm extractEntry tests/lib/common.js
+207 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel-binds.js
+208 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel.js
+209 silly gunzTarPerm extractEntry tests/old/speedtest-low.js
+210 silly gunzTarPerm extractEntry tests/old/speedtest.js
+211 silly gunzTarPerm extractEntry tests/old/speedtest2.js
+212 silly gunzTarPerm extractEntry tests/old/test2.js
+213 silly gunzTarPerm extractEntry tests/old/speedtest.rb
+214 silly gunzTarPerm extractEntry tests/old/speedtest2.rb
+215 silly gunzTarPerm extractEntry wscript
+216 verbose read json /home/pi/.npm/sqlite/1.0.4/package/package.json
+217 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+218 silly lockFile bde57341-home-pi-npm-sqlite-1-0-4-package /home/pi/.npm/sqlite/1.0.4/package
+219 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+220 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+221 silly shasum updated bytes 65536
+222 silly shasum updated bytes 65536
+223 silly shasum updated bytes 65536
+224 silly shasum updated bytes 65536
+225 silly shasum updated bytes 65536
+226 silly shasum updated bytes 65536
+227 silly shasum updated bytes 65536
+228 silly shasum updated bytes 65536
+229 silly shasum updated bytes 65536
+230 silly shasum updated bytes 65536
+231 silly shasum updated bytes 65536
+232 silly shasum updated bytes 65536
+233 silly shasum updated bytes 65536
+234 silly shasum updated bytes 65536
+235 silly shasum updated bytes 65536
+236 silly shasum updated bytes 65536
+237 silly shasum updated bytes 65536
+238 silly shasum updated bytes 65536
+239 silly shasum updated bytes 65536
+240 silly shasum updated bytes 36993
+241 info shasum 2b7ded8d31a21fe652da838b32362bd8e3d5a2d3
+241 info shasum /home/pi/.npm/sqlite/1.0.4/package.tgz
+242 verbose from cache /home/pi/.npm/sqlite/1.0.4/package/package.json
+243 verbose chmod /home/pi/.npm/sqlite/1.0.4/package.tgz 644
+244 verbose chown /home/pi/.npm/sqlite/1.0.4/package.tgz [ 1000, 1000 ]
+245 silly lockFile 2addb338-pmjs-org-sqlite-sqlite-1-0-4-tgz https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz
+246 silly lockFile 2addb338-pmjs-org-sqlite-sqlite-1-0-4-tgz https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz
+247 silly lockFile f07a2cfe-sqlite-1-0-4 sqlite@1.0.4
+248 silly lockFile f07a2cfe-sqlite-1-0-4 sqlite@1.0.4
+249 silly lockFile 02179a0b-sqlite sqlite@
+250 silly lockFile 02179a0b-sqlite sqlite@
+251 silly resolved [ { name: 'sqlite',
+251 silly resolved     description: 'SQLite3 bindings for Node',
+251 silly resolved     version: '1.0.4',
+251 silly resolved     homepage: 'http://github.com/orlandov/node-sqlite',
+251 silly resolved     author:
+251 silly resolved      { name: 'Orlando Vazquez',
+251 silly resolved        email: 'ovazquez@gmail.com',
+251 silly resolved        url: 'http://2wycked.net' },
+251 silly resolved     contributors: [ [Object], [Object], [Object], [Object] ],
+251 silly resolved     repository:
+251 silly resolved      { type: 'git',
+251 silly resolved        url: 'http://github.com/orlandov/node-sqlite.git' },
+251 silly resolved     main: './sqlite',
+251 silly resolved     engines: { node: '>=0.2.0' },
+251 silly resolved     scripts: { test: './run-tests', preinstall: 'node-waf configure build' },
+251 silly resolved     licenses: [ [Object] ],
+251 silly resolved     readme: '# NAME\n\nnode-sqlite - Asynchronous SQLite3 driver for Node.js\n\nSQLite calls block, so to work around this, synchronous calls happen within\nNode\'s libeio thread-pool, in a similar manner to how POSIX calls are\ncurrently made.\n\n# SYNOPSIS\n\n## High-level Driver\n\n    var sys    = require(\'sys\'),\n        sqlite = require(\'sqlite\');\n\n    var db = new sqlite.Database();\n\n    // open the database for reading if file exists\n    // create new database file if not\n\n    db.open("aquateen.db", function (error) {\n      if (error) {\n          console.log("Tonight. You."));\n          throw error;\n      }\n      db.execute\n        ( "INSERT INTO aqua_teens (name) VALUES (?)"\n        , [\'meaty meaty moo\']\n        , function (error, rows) {\n            if (error) throw error;\n            console.log("Aqua teen added.");\n          }\n        );\n      var sql = \'SELECT name FROM dudes WHERE type = ? AND age > ?\';\n\n      db.prepare(sql, function (error, statement) {\n        if (error) throw error;\n\n        // Fill in the placeholders\n        statement.bindArray([\'milkshake\', 30], function () {\n\n          statement.fetchAll(function (error, rows) {\n            // ...\n            statement.finalize(function (error) {\n              console.log("All done!");\n            });\n          });\n        });\n      });\n    });\n\n# API\n\n## Database Objects\n\nTo create a new database object:\n    var sqlite = require(\'sqlite\');\n\n    var db = sqlite.Database();\n\n### database.open(filename, function (error) {})\n\nOpen a database handle to the database at the specified filename. If the file\ndoes not exist the bindings will attempt to create it. The callback takes no\narguments.\n\nA filename of ":memory:" may be used to create an in-memory database.\n\n### database.close(function (error) {})\n\nClose the database handle.\n\n### database.execute(sql[, bindings], function (error, rows) {})\n\nExecute a SQL query, `sql` with optional bindings `bindings` on the currently\nopened database. The callback will be executed once with all the rows returned\nfor the query. This is much faster than `database.query` since there are less roundtrips into the thread-pool.\n\n### database.query(sql, [bindings,] function (error, row) {})\n\nExecute a SQL query, `sql`, with optional bindings `bindings` on the currently\nopened database. The callback will be executed once per row returned, plus\nonce more with row set to undefined to indicate end of results.\n\n### database.executeScript(SQL, function (error) {});\n\n    db.executeScript\n      (   "CREATE TABLE table1 (id, name);"\n        + "CREATE TABLE table2 (id, age);"\n        + "INSERT INTO table1 (1, \'Mister Shake\');"\n        + "INSER INTO table2 (1, 34);"\n      , function (error) {\n          if (error) throw error;\n          // ...\n        });\n\nExecute multiple semi-colon separated SQL statements. Statements must take no\nplaceholders. Each statement will be executed with a single step() and then\nreset. This is ideally suited to executing multiple DDL statements.\n\n### database.prepare(SQL, [options,] function (error, statement) {})\n\nCreate a prepared statement from an SQL string. Prepared statements can be\nused used to iterate over results and to avoid compiling SQL each time a query\nis performed.\n\nOptions:\n\n- lastInsertRowID: boolean, default false.\n    If true, when this statement is step()\'d over, the context object (this) in\n    the callback will contain a lastInsertRowID member with the ID of the last\n    inserted row.\n\n- affectedRows: boolean, default false.\n    If true, when this statement is step()\'d over, the context object (this) in\n    the callback will contain an affectedRows member with the number of\n    affected rows for the last step.\n\n## Statement Objects\n\n### statement.bindArray(array, function (error) {})\n\n    statement.bindArray([1, \'robots\', 4.20], callback)\n\nBind array items to place-holder values (? or $foo) in statement.\n\n### statement.bindObject(object, function (error) {})\n\n    statement.bindObject({ $name: \'meatwad\',\n                           $occupation: \'Former detective\' }, callback)\n\nBind object properties to named place-holder values ($foo, $bar, $baz) in\nstatement.\n\n### statement.bind(position, value, function (error) {})\n\n    statement.bind(1, "tango", function (error) {})\n\nBind a value to a place-holder position. Because binding place-holders is done\nby position (not index), the first place-holder is at position 1, second at\nplace-holder position 2, etc.\n\n### statement.clearBindings()\n\nImmediately clear the bindings from the statement. There is no callback.\n\n### statement.step(function (error, row) {})\n\nFetch one row from a prepared statement and hand it off to a callback. If\nthere are no more rows to be fetched, row will be undefined. Rows are\nrepresented as objects with properties named after the respective columns.\n\n### statement.fetchAll(function (error, rows) {})\n\nFetch all rows in statement and pass them to the callback as an array of\nobjects, each object representing one row.\n\n### statement.reset()\n\nImmediately reset a statement object back to it\'s initial state, ready to be\nstep() or fetchAll()\'d again.\n\n### statement.finalize(function (error) {})\n\nFree SQLite objects associated with this statement and mark it for garbage\ncollection.\n\n## Supported Types\n\nAt the moment, the supported types are TEXT, NUMBER, FLOAT and NULL.\n\n# BUILDING\n\nTo obtain and build the bindings:\n\n    git clone http://github.com/orlandov/node-sqlite.git\n    cd node-sqlite\n    node-waf configure build\n\n# TESTS\n\nRunning the unit tests could not be easier. Simply:\n\n    git submodule update --init\n    ./run-tests\n\n# SEE ALSO\n\n* http://sqlite.org/docs.html\n* http://github.com/grumdrig/node-sqlite/\n\n# AUTHORS\n\nOrlando Vazquez [ovazquez@gmail.com]\n\nRyan Dahl [ry@tinyclouds.org]\n\n# THANKS\n\nMany thanks to Eric Fredricksen for his synchronous driver on which this\ndriver was originally based.\n\n* http://github.com/grumdrig/node-sqlite/\n* http://grumdrig.com/node-sqlite/\n\n# LICENSE\n\nnode-sqlite is BSD licensed.\n\n(c) 2010 Orlando Vazquez\n',
+251 silly resolved     readmeFilename: 'README.md',
+251 silly resolved     _id: 'sqlite@1.0.4',
+251 silly resolved     dist: { shasum: '2b7ded8d31a21fe652da838b32362bd8e3d5a2d3' },
+251 silly resolved     _from: 'sqlite@',
+251 silly resolved     _resolved: 'https://registry.npmjs.org/sqlite/-/sqlite-1.0.4.tgz' } ]
+252 info install sqlite@1.0.4 into /home/pi/sockettest
+253 info installOne sqlite@1.0.4
+254 verbose from cache /home/pi/.npm/sqlite/1.0.4/package/package.json
+255 info /home/pi/sockettest/node_modules/sqlite unbuild
+256 verbose read json /home/pi/sockettest/node_modules/sqlite/package.json
+257 verbose tar unpack /home/pi/.npm/sqlite/1.0.4/package.tgz
+258 silly lockFile b62f63f2-i-sockettest-node-modules-sqlite /home/pi/sockettest/node_modules/sqlite
+259 verbose lock /home/pi/sockettest/node_modules/sqlite /home/pi/.npm/b62f63f2-i-sockettest-node-modules-sqlite.lock
+260 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+261 verbose lock /home/pi/.npm/sqlite/1.0.4/package.tgz /home/pi/.npm/2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz.lock
+262 silly gunzTarPerm modes [ '755', '644' ]
+263 silly gunzTarPerm extractEntry package.json
+264 silly gunzTarPerm extractEntry .npmignore
+265 silly gunzTarPerm extractEntry README.md
+266 silly gunzTarPerm extractEntry sqlite.js
+267 silly gunzTarPerm extractEntry async-testing/LICENSE
+268 silly gunzTarPerm extractEntry async-testing/async_testing.js
+269 silly gunzTarPerm extractEntry async-testing/AUTHORS
+270 silly gunzTarPerm extractEntry async-testing/README.markdown
+271 silly gunzTarPerm extractEntry async-testing/examples/test-readme.js
+272 silly gunzTarPerm extractEntry async-testing/examples/test-suites.js
+273 silly gunzTarPerm extractEntry async-testing/node-async-test
+274 silly gunzTarPerm extractEntry async-testing/todo.txt
+275 silly gunzTarPerm extractEntry build.sh
+276 silly gunzTarPerm extractEntry deps/mpool-2.1.0/README
+277 silly gunzTarPerm extractEntry deps/mpool-2.1.0/ChangeLog.1
+278 silly gunzTarPerm extractEntry deps/mpool-2.1.0/Makefile
+279 silly gunzTarPerm extractEntry deps/mpool-2.1.0/NEWS
+280 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.c
+281 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool.h
+282 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_loc.h
+283 silly gunzTarPerm extractEntry deps/mpool-2.1.0/mpool_t.c
+284 silly gunzTarPerm extractEntry deps/sqlite/shell.c
+285 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.c
+286 silly gunzTarPerm extractEntry deps/sqlite/sqlite3.h
+287 silly gunzTarPerm extractEntry deps/sqlite/sqlite3ext.h
+288 silly gunzTarPerm extractEntry .gitmodules
+289 silly gunzTarPerm extractEntry run-tests
+290 silly gunzTarPerm extractEntry src/database.cc
+291 silly gunzTarPerm extractEntry src/database.h
+292 silly gunzTarPerm extractEntry src/sqlite3_bindings.cc
+293 silly gunzTarPerm extractEntry src/sqlite3_bindings.h
+294 silly gunzTarPerm extractEntry src/statement.cc
+295 silly gunzTarPerm extractEntry src/statement.h
+296 silly gunzTarPerm extractEntry tests/test-affected-rows.js
+297 silly gunzTarPerm extractEntry tests/test-bind-placeholders.js
+298 silly gunzTarPerm extractEntry tests/test-bind-strings.js
+299 silly gunzTarPerm extractEntry tests/test-last-inserted-id.js
+300 silly gunzTarPerm extractEntry tests/test-prepare.js
+301 silly gunzTarPerm extractEntry tests/test-statement-fetchall.js
+302 silly gunzTarPerm extractEntry tests/test-statement-step.js
+303 silly gunzTarPerm extractEntry tests/lib/common.js
+304 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel-binds.js
+305 silly gunzTarPerm extractEntry tests/old/speedtest-low-parallel.js
+306 silly gunzTarPerm extractEntry tests/old/speedtest-low.js
+307 silly gunzTarPerm extractEntry tests/old/speedtest.js
+308 silly gunzTarPerm extractEntry tests/old/speedtest2.js
+309 silly gunzTarPerm extractEntry tests/old/test2.js
+310 silly gunzTarPerm extractEntry tests/old/speedtest.rb
+311 silly gunzTarPerm extractEntry tests/old/speedtest2.rb
+312 silly gunzTarPerm extractEntry wscript
+313 verbose read json /home/pi/sockettest/node_modules/sqlite/package.json
+314 silly lockFile b62f63f2-i-sockettest-node-modules-sqlite /home/pi/sockettest/node_modules/sqlite
+315 silly lockFile b62f63f2-i-sockettest-node-modules-sqlite /home/pi/sockettest/node_modules/sqlite
+316 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+317 silly lockFile 2c6c2ed8--pi-npm-sqlite-1-0-4-package-tgz /home/pi/.npm/sqlite/1.0.4/package.tgz
+318 info preinstall sqlite@1.0.4
+319 verbose unsafe-perm in lifecycle true
+320 silly exec sh "-c" "node-waf configure build"
+321 silly sh,-c,node-waf configure build,/home/pi/sockettest/node_modules/sqlite spawning
+322 info sqlite@1.0.4 Failed to exec preinstall script
+323 info /home/pi/sockettest/node_modules/sqlite unbuild
+324 verbose from cache /home/pi/sockettest/node_modules/sqlite/package.json
+325 info preuninstall sqlite@1.0.4
+326 info uninstall sqlite@1.0.4
+327 verbose true,/home/pi/sockettest/node_modules,/home/pi/sockettest/node_modules unbuild sqlite@1.0.4
+328 info postuninstall sqlite@1.0.4
+329 error sqlite@1.0.4 preinstall: `node-waf configure build`
+329 error `sh "-c" "node-waf configure build"` failed with 127
+330 error Failed at the sqlite@1.0.4 preinstall script.
+330 error This is most likely a problem with the sqlite package,
+330 error not with npm itself.
+330 error Tell the author that this fails on your system:
+330 error     node-waf configure build
+330 error You can get their info via:
+330 error     npm owner ls sqlite
+330 error There is likely additional logging output above.
+331 error System Linux 3.1.9adafruit+
+332 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "sqlite"
+333 error cwd /home/pi/sockettest
+334 error node -v v0.10.1
+335 error npm -v 1.2.15
+336 error code ELIFECYCLE
+337 verbose exit [ 1, true ]
