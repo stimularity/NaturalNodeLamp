@@ -1,14 +1,8 @@
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
-var fs = require("fs");
+var db = require('./Database'); //All Database access functions
 
-var sqlite3 = require('node-sqlite3').verbose();
-var db = new sqlite3.Database('./Alarms.db');
 
-//The DB query to create the table
-//CREATE TABLE IF NOT EXISTS alarms (id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT NOT NULL, mon INTEGER, tue INTEGER, wed INTEGER, thu INTEGER, fri INTEGER, sat INTEGER, sun INTEGER, comment TEXT);
-//INSERT INTO alarms (time, mon, tue, wed, thu, fri, sat, sun, comment) VALUES ('2250', '1', '1', '1', '1', '1', '0', '0', 'Hunt Werewolfs');
-//INSERT INTO alarms (time, mon, tue, wed, thu, fri, sat, sun, comment) VALUES ('0930', '0', '0', '0', '0', '0', '1', '1', 'Stash Cheese in mouth.');
 
 
 
@@ -17,30 +11,6 @@ var Time = function(station) {
 	// we need to store the reference of `this` to `self`, so that we can use the current context in the setTimeout (or any callback) functions
     // using `this` in the setTimeout functions will refer to those funtions, not the Radio class
     var self = this;
-
-    //Attempt to open database if its not there, just whip one up
-    
-
-    fs.exists('./Alarms.db', function(exists){
-    	console.log("Yeah, I see it. Its totally there.");
-    });
-    
-    self.on('updateAlarm', function(alarm){
-
-    });
-
-    self.on('addAlarm', function(alarm){
-    	
-    });
-
-    self.on('deleteAlarm', function(alarm){
-    	
-    });
-
-    self.on('getAlarm', function(alarm){
-    	
-    });
-
 
 	function currentTime(){
 		var ctime = new Date();
@@ -61,15 +31,40 @@ var Time = function(station) {
 		}
 		return hours + ":" + minutes + " " + suffix;
 	}
-	function checkForAlarms(){
-		//Check for alarms, if match is found, emit alarm event.
-	}
+
+	//Gets all the alarms. Async, trigger refresh Alarms when complete
+	this.on('getAlarms', function(){
+		console.log('Getting a whole bunch of alarms for you dog.');
+		db.getAlarms(function(data){
+			self.emit('refreshAlarms',{ alarms: data}); //Sends alarm data back to socket.io when ready
+		});
+	});
+
+	this.on('addAlarm', function(alarm){
+		console.log('Adding an alarm for you bro. Break that alarm into parts!');
+		//Parse time and make sure its a valid alarm.
+		var hour = 10, minute = 10;
+
+
+		db.addAlarm(hour, minute, function(data){
+			//On success
+			self.emit('getAlarms'); //Get all the alarms, this will trigger refresh and send to user.
+		});
+	});
+
+	this.on('deleteAlarm', function(id){
+		console.log('Getting rid of an alarm with id ' + id);
+		db.deleteAlarm(id, function(itworked){
+			if(itworked){
+				self.emit('getAlarms'); //Get alarms triggers refreshAlarms event.
+			}
+		});
+	});
 
 	//Trigger tick every minute. (10 for testing.)
     setInterval(function(){
 		self.emit('tick', currentTime());
-		//check for set alarms.
-		checkForAlarms(); //Check database for alarms at current time.
+		db.checkForAlarm(); //check for set alarms.
     },1000);//60000);
 
 
@@ -82,6 +77,5 @@ var Time = function(station) {
 
 // extend the EventEmitter class using our Radio class
 util.inherits(Time, EventEmitter);
-
 // we specify that this module is a refrence to the Radio class
 module.exports = Time;

@@ -9,6 +9,7 @@ var app = express();
 var server = http.createServer(app);
 
 var leds = require('./Leds'); //No interface, base of all library functions.
+//var db = require('./Database'); //All Database access functions
 var Time = require('./Time'); //Global Timer and time function.
 var timer = new Time(); // create an instance of the Time class
 
@@ -27,6 +28,7 @@ require("fs").readdirSync("./animations").forEach(function(file) {
 /*
  * Express Server
  */
+
 app.configure(function(){
   app.set('port', process.env.PORT || 80); //Set port
   app.set('views', __dirname + '/views'); //Dirname for templates
@@ -56,7 +58,12 @@ io.sockets.on('connection', function (socket) {
    * GOING OUT >----------->
    */
 
-  //Update server time for user
+  //Refresh Alarms for User
+  timer.on('refreshAlarms', function(alarmdata){
+    socket.emit('refreshAlarms', alarmdata['alarms']);
+  });
+
+  //Refresh server time for User
   timer.on('tick', function(time){
     socket.emit('servertime', { servertime: time });
   });
@@ -65,9 +72,19 @@ io.sockets.on('connection', function (socket) {
    * COMING IN <-----------<
    */
 
+  //Tells Timer we would like some alarms please
+  socket.on('getAlarms',function(){
+    timer.emit('getAlarms');
+  });
+
   //Update an existing alarm, no blocking
-  socket.on('updateAlarm', function(alarm){
-    timer.emit('updateAlarm', alarm);
+  socket.on('getAlarms', function(alarm){
+    timer.emit('getAlarm', alarm);
+  });
+
+  //Update an existing alarm.
+  timer.on('updateAlarm', function(alarms){
+    socket.emit('updateAlarm', {alarms:alarms});
   });
 
   //Adds a new alarm to database
@@ -76,8 +93,8 @@ io.sockets.on('connection', function (socket) {
   });
 
   //Deletes an existing alarm
-  socket.on('deleteAlarm', function(alarm){
-    timer.emit('deleteAlarm', alarm);
+  socket.on('deleteAlarm', function(id){
+    timer.emit('deleteAlarm', id);
   });
 
   //Triggered by buttons or sliders
@@ -88,15 +105,16 @@ io.sockets.on('connection', function (socket) {
 
 });//End Socket.io
 
+
+/*
+ * Events Area (Members Only)
+ */
+
 timer.on('alarm', function(id, value) {
     console.log('♬ ♫♬ ALARM ♬ ♫♬');
     console.log(id + " " + value);
     ///runAnimation(id, value);
 });
-
-/*
- * Events Area (Members Only)
- */
 
 
 /*

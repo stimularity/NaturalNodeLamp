@@ -6,3 +6,48 @@ body {
 a {
   color: #00B7FF;
 }
+
+div#alarms {
+	margin: 30px 0 0 0;
+}
+.alarmrow, .row-fluid{
+	border-top:thin solid #E1E1E1;
+	padding: 5px 0 0 0;
+}
+
+.alarminput {
+	background-color: #00B7FF;
+	width: 500px;
+	text-align: center;
+}
+#alarmdisplay {
+	line-height: 47px;
+	font-size: 55px;
+	font-weight: bold;
+}
+.numpad {
+	width: 100%;
+	float: left;
+	margin: 5px 0 5px 0;
+}
+.padbutton, .lowerbutton {
+	width: 32%;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 47px;
+	font-size: 55px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.padbutton:hover, .lowerbutton:hover {
+	background-color: #DBDBDB;
+}
+.daypad {
+	width:100%;
+}
+.disable, .disable:hover {
+	color: #B5B5B5;
+	cursor: default;
+	background-color: #00B7FF;
+}

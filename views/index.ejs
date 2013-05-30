@@ -9,24 +9,34 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
 
-	<script src="/socket.io/socket.io.js"></script>
-<script>
-	var socket = io.connect();
-    socket.on('news', function (data) { //Getting Data from server.
-      console.log(data);
-    });
-
-    socket.on('servertime', function(data){
-        $('#servertime').empty().append(data['servertime']);
-    });
-</script>
-
-
+	
 
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %> <div id="servertime">Yo Mamma</div></p>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#"><%= title %></a>
+
+            <ul class="nav">
+              <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime">Yo Mamma</span></a></li>
+              <li><a href="#about">About</a></li>
+            </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container"> <!-- /container -->
+
+    <h1></h1>
+    <p>Welcome to <%= title %> </p>
 
     <div class="btn-group">
         <button class="btn button" id="on">on</button>
@@ -44,6 +54,8 @@
         <button class="btn button" id="darken">darken</button>
     </div>
 
+    <button class="btn" id="New Alarm"><i class="icon-plus"></i>New Alarm</button>
+
     <br />
 
     Red
@@ -52,34 +64,181 @@
     <div class="slider" id="green"></div>
     Blue
     <div class="slider" id="blue"></div>
+
+
+    <div id="alarms">
+        
+    </div>
+
+    <div id="alarminput" class="alarminput">
+        <div class="row-fluid">
+            <div id="alarmdisplay" class="span9"></div><div id="backspace" class="span3 lowerbutton"><</div>
+        </div>
+        
+        <div id="numpad" class="numpad"></div>
+
+        <div id="daypad" class="daypad"></div>
+
+        <div class="row-fluid">
+            <div id="cancel" class="span6 lowerbutton">Cancel</div><div id="submit" class="span6 lowerbutton">Submit</div>
+        </div>
+    </div>
+
+
+    </div> <!-- /container -->
+
+    
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
 
-    <script>
-$(function() {
-
-$( ".slider" ).slider({
-    max:255,
-    min:0,
-	slide: function( event, ui ) {
-		value = $(this).slider('value');
-		id = $(this).attr('id');
-		console.log(id + ": " + value);
-		socket.emit('interact', { id:id, value:value });
-	}
-});
-
-$(".button").click(function(){
-	id = $(this).attr('id');
-	console.log("Pressed: " + id);
-	socket.emit('interact', { id:id, value:1 });
-});
+<script src="/socket.io/socket.io.js"></script>
+<script>
 
 
+    var d = new Date();
+    var mh = d.getHours(); //0 - 23
+    var m = d.getMinutes(); //0 - 59
 
+    console.log('mh:' + mh + ' m: ' + m);
 
-});
+    var socket = io.connect();
+    socket.emit('getAlarms');
+
+    socket.on('news', function (data) { //Getting Data from server.
+      console.log(data);
+    });
+
+    socket.on('servertime', function(data){
+        $('#servertime').empty().append(data['servertime']);
+    });
+
+    socket.on('refreshAlarms', function(a){
+        $('#alarms').empty();
+        for (var i = 0; i < a.length; i++) {
+            $('#alarms').append('<div class="row-fluid alarmrow"><div class="span4">'+a[i]['hour']+':'+a[i]['minute']+' '+a[i]['comment']+'</div><div class="span1">'+a[i]['sun']+'</div><div class="span1">'+a[i]['mon']+'</div><div class="span1">'+a[i]['tue']+'</div><div class="span1">'+a[i]['wed']+'</div><div class="span1">'+a[i]['thu']+'</div><div class="span1">'+a[i]['fri']+'</div><div class="span1">'+a[i]['sat']+'</div><div class="span1 deletebutton" id="'+a[i]['id']+'"><i class="icon-remove"></div></div>');
+        };
+
+        //Bind events to all the shit here.
+        $('.deletebutton').click(function(){
+            socket.emit('deleteAlarm', $(this).attr('id'));
+        });
+
+    });
+
+    $(document).ready(function() {
+        //Generate Number Input pad thang
+        generateAlarmInputPad();
+
+        $( ".slider" ).slider({ max:255, min:0,
+        slide: function( event, ui ) {
+            value = $(this).slider('value');
+            id = $(this).attr('id');
+            console.log(id + ": " + value);
+            socket.emit('interact', { id:id, value:value });
+        }
+        });
+
+        $(".button").click(function(){
+            id = $(this).attr('id');
+            console.log("Pressed: " + id);
+            socket.emit('interact', { id:id, value:1 });
+        });
+
+        $('#newalarm').click(function(){
+            //Append Alarmb Stuff here.FUCK!
+            //$('body').append();
+        });
+    });//
+
+    function renderPadButtons(disable){ //b1, b2, b3, b4, b5, b6, b7, b8, b9, bam, b0, bpm, bsubmit){
+        var padbuttons = '', display=1, off=false;
+        for(var i=1; i<=12; i++){
+            off = '';
+            display = i;
+            if(i == 10){ display='AM'; }
+            if(i == 11){ display='0'; }
+            if(i == 12){ display='PM'; }
+
+            for(var k=0; k<=12; k++){
+                if(display == disable[k]){
+                    off=' disable'; //Disable button 
+                }
+            }
+
+            padbuttons += '<div id="numpad_'+display+'" class="padbutton'+off+'">'+display+'</div>';
+        }
+        $('#numpad').empty().unbind().append(padbuttons);
+    }//
+
+    function generateAlarmInputPad(){
+        var input = $('#alarmdisplay').text();
+        var length = input.length;
+
+        //COLON ADDING GOODNESS
+        if (length == 1 && input > 1) { $('#alarmdisplay').append(':'); }
+        //ONLY 1, 2, 0
+        if(length == 2 && input > 12){ $('#alarmdisplay').text( input[0]+':'+input[1] ); }//Sneak in a colon
+        //Only if length is greater than 2
+        if(length == 3){
+            if(input.indexOf(':') === -1){
+                $('#alarmdisplay').text( input.substring(0,2)+':'+input[2] ); //Sneak in a colon
+            }
+        }
+
+        //Bad Time Entering Prevention.
+        if(length == 0) renderPadButtons(['AM','PM',0]);
+        else if(length == 1) renderPadButtons(['AM','PM',6,7,8,9]);
+        else if(length == 2 && input == 12 || input == 11 || input == 10) renderPadButtons(['AM','PM',6,7,8,9]);
+        else renderPadButtons(['AM','PM']);
+
+        //If the length of the string after the colon is two, render AM, PM buttons
+        var col = input.indexOf(':');
+        if(col != -1){
+            var twodigits = input.substring(col+1, input.length+1);
+            console.log(twodigits);
+            if(twodigits.length == 2){ renderPadButtons([1,2,3,4,5,6,7,8,8,9,0]) }
+        }
+
+        $('#submit').addClass('disable');
+        if(input.indexOf('AM') !== -1 || input.indexOf('PM') !== -1 && input.length >= 4)
+        { //Render Submit Buttons
+            $('#submit').removeClass('disable');
+            renderPadButtons([1,2,3,4,5,6,7,8,8,9,0, 'AM', 'PM']);
+        }
+
+        
+
+        $('.padbutton').unbind().click(function(){
+            var time = $('#alarmdisplay').text();
+            time += $(this).text();
+            $('#alarmdisplay').empty().append(time);
+            generateAlarmInputPad();
+        });
+
+        $('#submit').unbind().click(function(){
+            $('#alarmdisplay').text(''); //Clear alarm thing on submit. 
+            socket.emit('addAlarm', $('#alarmdisplay').text()); //Send alarm time to server
+            //Close Input Pad
+        });
+
+        $('#cancel').unbind().click(function(){
+            //Close Input Pad
+        });
+
+        $('#backspace').unbind().click(function(){
+            var current = $('#alarmdisplay').text();
+            var end = current.substring(current.length-1, current.length);
+            if(end.indexOf(':') == 0 || end.indexOf('M') == 0){
+                $('#alarmdisplay').text(current.substring(0,current.length-2));
+            } else {
+                $('#alarmdisplay').text(current.substring(0,current.length-1));
+            }
+            generateAlarmInputPad(); //Refresh buttons
+        });
+
+        $('.disable').unbind(); //Usbind Events on disabled buttons.
+    }//
 </script>
   </body>
 </html>
