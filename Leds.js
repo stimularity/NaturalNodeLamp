@@ -3,7 +3,6 @@
 
 	//Required Libraries
 	var SPI = require('spi'); //SPI for low level stuff
-	var tinycolor = require('tinycolor2');
 
 	this.pixelcount = 25; //Global Var, number of pixels in strip
 	var strip = new SPI.Spi('/dev/spidev0.0', function(){}); //Init SPI
