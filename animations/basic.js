@@ -24,7 +24,6 @@
 		if(id == 'darken'){ darken(); }
 		if(id == 'lighten'){ lighten(); }
 		if(id == 'saturate'){ saturate(); }
-
 	};
 
 	function lighten(){

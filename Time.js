@@ -32,23 +32,20 @@ var Time = function(station) {
 		return hours + ":" + minutes + " " + suffix;
 	}
 
-	//Gets all the alarms. Async, trigger refresh Alarms when complete
-	this.on('getAlarms', function(){
-		console.log('Getting a whole bunch of alarms for you dog.');
-		db.getAlarms(function(data){
-			self.emit('refreshAlarms',{ alarms: data}); //Sends alarm data back to socket.io when ready
-		});
-	});
-
 	this.on('addAlarm', function(alarm){
-		console.log('Adding an alarm for you bro. Break that alarm into parts!');
-		//Parse time and make sure its a valid alarm.
-		var hour = 10, minute = 10;
-
-
-		db.addAlarm(hour, minute, function(data){
-			//On success
-			self.emit('getAlarms'); //Get all the alarms, this will trigger refresh and send to user.
+		//index of : - Take everything before that
+		var hour = parseInt(alarm.substring(0, alarm.indexOf(':')),10);
+		//Minute, between : and M-1
+		var minute = parseInt(alarm.substring(alarm.indexOf(':')+1, alarm.indexOf('M')-1),10);
+		//Get meridian of alarm
+		var meridian = alarm.substring(alarm.indexOf('M')-1,alarm.length);
+		//Adjust for military time.
+		if(meridian == 'PM'){ hour+=12; }
+		var date = new Date();
+		//Save alarm
+		db.addAlarm(hour, minute, date.getDay(), function(data){
+		//On success
+		self.emit('refreshAlarms'); //Get all the alarms, this will trigger refresh and send to user.
 		});
 	});
 
@@ -56,15 +53,36 @@ var Time = function(station) {
 		console.log('Getting rid of an alarm with id ' + id);
 		db.deleteAlarm(id, function(itworked){
 			if(itworked){
-				self.emit('getAlarms'); //Get alarms triggers refreshAlarms event.
+				//self.emit('refreshAlarms'); //Get alarms triggers refreshAlarms event.
+				//todo Replace this with a Send-message-to-user event.
+			}
+		});
+	});
+
+	//Updates a specific field with a given value.
+	this.on('updateAlarm', function(id, field, value){
+		db.updateAlarm(id, field, value, function(success){
+			if(success){
+				self.emit('refreshAlarms');
 			}
 		});
 	});
 
 	//Trigger tick every minute. (10 for testing.)
     setInterval(function(){
-		self.emit('tick', currentTime());
-		db.checkForAlarm(); //check for set alarms.
+		self.emit('tick', currentTime()); //Send current time to user
+
+		weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+		var d = new Date();
+		var hour = d.getHours();
+		var minute = d.getMinutes();
+		var day = weekday[d.getDay()];
+
+		//check for set alarms.
+		db.checkForAlarm(hour, minute, day, function(alarmtype){
+			self.emit('alarm', alarmtype, 0); //interface(id, value);
+		});
     },1000);//60000);
 
 

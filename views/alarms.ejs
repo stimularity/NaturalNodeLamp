@@ -1,0 +1,62 @@
+
+<div class="row-fluid">
+
+		<div class="span1">Enabled</div>
+		<div class="span1">Time</div>
+		<div class="span1">Sunday</div>
+		<div class="span1">Monday</div>
+		<div class="span1">Tuesday</div>
+		<div class="span1">Wednesday</div>
+		<div class="span1">Thursday</div>
+		<div class="span1">Friday</div>
+		<div class="span1">Saturday</div>
+		<div class="span2">Comment</div>
+		<div class="span1">Delete</div>
+
+
+
+
+
+
+	</div><!--/row-fluid-->
+
+<% for(var i=0; i<alarms.length; i++) {%>
+	<div class="row-fluid" id="<%= alarms[i]['id'] %>">
+
+		<div class="span1">
+			<%if (0==alarms[i]['enabled']) {%>  <button title="enabled" value="<%= alarms[i]['enabled'] %>" class="btn btn-mini">Off</button>  <%}%>
+			<%if (1==alarms[i]['enabled']) {%>  <i class="icon-bell"></i><button title="enabled" value="<%= alarms[i]['enabled'] %>" class="btn btn-mini btn-success">On</button>  <%}%>
+
+		</div>
+		<div class="span1"><%= alarms[i]['time'] %></div>
+
+		<div class="span1">
+			<button title="sun" value="<%= alarms[i]['sun'] %>" class="btn btn-mini  <%if (1 == alarms[i]['sun']) {%>btn-info<%}%>">Sunday</button>
+		</div>
+		<div class="span1">
+			<button title="mon" value="<%= alarms[i]['mon'] %>" class="btn btn-mini  <%if (1 == alarms[i]['mon']) {%>btn-info<%}%>">Monday</button>
+		</div>
+		<div class="span1">
+			<button title="tue" value="<%= alarms[i]['tue'] %>" class="btn btn-mini  <%if (1 == alarms[i]['tue']) {%>btn-info<%}%>">Tuesday</button>
+		</div>
+		<div class="span1">
+			<button title="wed" value="<%= alarms[i]['wed'] %>" class="btn btn-mini  <%if (1 == alarms[i]['wed']) {%>btn-info<%}%>">Wednesday</button>
+		</div>
+		<div class="span1">
+			<button title="thu" value="<%= alarms[i]['thu'] %>" class="btn btn-mini  <%if (1 == alarms[i]['thu']) {%>btn-info<%}%>">Thursday</button>
+		</div>
+		<div class="span1">
+			<button title="fri" value="<%= alarms[i]['fri'] %>" class="btn btn-mini  <%if (1 == alarms[i]['fri']) {%>btn-info<%}%>">Friday</button>
+		</div>
+		<div class="span1">
+			<button title="sat" value="<%= alarms[i]['sat'] %>" class="btn btn-mini  <%if (1 == alarms[i]['sat']) {%>btn-info<%}%>">Saturday</button>
+		</div>
+		<div class="span2"><%= alarms[i]['comment'] %></div>
+		<div class="span1 deletebutton" title="delete"><i class="icon-remove" /></div>
+
+
+
+
+
+	</div><!--/row-fluid-->
+<% } %>

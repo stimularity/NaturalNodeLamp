@@ -11,12 +11,11 @@ div#alarms {
 	margin: 30px 0 0 0;
 }
 .alarmrow, .row-fluid{
-	border-top:thin solid #E1E1E1;
+	border-bottom:thin solid #E1E1E1;
 	padding: 5px 0 0 0;
 }
 
 .alarminput {
-	background-color: #00B7FF;
 	width: 500px;
 	text-align: center;
 }
@@ -41,13 +40,38 @@ div#alarms {
 	cursor: pointer;
 }
 .padbutton:hover, .lowerbutton:hover {
-	background-color: #DBDBDB;
+	/*background-color: #DBDBDB;*/
+	-moz-box-shadow:    inset 0px 1px 2px 2px #ccc;
+	-webkit-box-shadow: inset 0px 1px 2px 2px #ccc;
+	box-shadow:         inset 0px 1px 2px 2px #ccc;
 }
 .daypad {
 	width:100%;
 }
 .disable, .disable:hover {
-	color: #B5B5B5;
+	color: #F0F0F0;
 	cursor: default;
-	background-color: #00B7FF;
+	-moz-box-shadow:    inset 0px 0px 0px 0px #FFF;
+	-webkit-box-shadow: inset 0px 0px 0px 0px #FFF;
+	box-shadow:         inset 0px 0px 0px 0px #FFF;
+}
+
+/* ---------------------------------- Lightbox Styles  ---------------------------------- */
+#lightbox {
+	background:#333;
+	height:100%;
+	width:100%;
+	z-index:1000;
+	position:absolute;
+	float:left;
+	opacity: 0.5;
+}
+#lightboxcore {
+	background:#FFF;
+	z-index:1001;
+	border:thick solid #009;
+	padding:10px;
+	position:absolute;
+	
+	border-radius: 15px;
 }

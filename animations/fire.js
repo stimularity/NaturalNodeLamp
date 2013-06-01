@@ -3,6 +3,7 @@
 		if(id == 'fire'){
 			randomColor();
 		}
+		if(id == 'off'){ animate = false; }
 	};
 
 	var leds;

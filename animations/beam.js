@@ -7,6 +7,7 @@
 			//console.log('Beaming ' + leds.r() + ', ' + leds.g() + ', ' + leds.g());
 			loopBeam();
 		}
+		if(id == 'off'){ animate = false; }
 	};
 
 	var leds;

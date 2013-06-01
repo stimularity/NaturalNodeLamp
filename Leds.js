@@ -9,6 +9,7 @@
 	var strip = new SPI.Spi('/dev/spidev0.0', function(){}); //Init SPI
 	var buff = new Buffer(this.pixelcount * 3 + 1); //Create Buffer that will eventually be written out
 	var emptybuff = new Buffer(this.pixelcount * 3 + 1); //Create Buffer that will eventually be written out
+	emptybuff.fill(0x0);
 
 	var red = 0;
 	var green = 0;

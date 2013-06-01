@@ -8,6 +8,7 @@
 			leds.fillColor(0,0,0); //Turn off color wheel
 			loopy();
 		}
+		if(id == 'off'){ animate = false; }
 	};
 
 	exports.init = function(parentleds){

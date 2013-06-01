@@ -7,6 +7,7 @@
 			loopMathmos();
 			console.log('Mothmosing!!!');
 		}
+		if(id == 'off'){ animate = false; }
 	};
 
 	var leds;
