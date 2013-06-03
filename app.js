@@ -25,6 +25,8 @@ require("fs").readdirSync("./animations").forEach(function(file) {
   console.log('animations['+file.slice(0, -3)+']');
 });
 
+animations['sunrise'].interface('sunrise',0);
+
 /*
  * Express Server
  */

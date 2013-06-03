@@ -71,6 +71,7 @@ var Time = function(station) {
 	//Trigger tick every minute. (10 for testing.)
     setInterval(function(){
 		self.emit('tick', currentTime()); //Send current time to user
+		console.log('Server Time ' + currentTime());
 
 		weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -83,7 +84,7 @@ var Time = function(station) {
 		db.checkForAlarm(hour, minute, day, function(alarmtype){
 			self.emit('alarm', alarmtype, 0); //interface(id, value);
 		});
-    },1000);//60000);
+    },60000);//1000);
 
 
     /*
