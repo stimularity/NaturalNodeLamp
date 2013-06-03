@@ -68,10 +68,15 @@ var Time = function(station) {
 		});
 	});
 
-	//Trigger tick every minute. (10 for testing.)
+	//Update the user interface every 2 seconds.
+	setInterval(function(){
+		self.emit('updateUserInterface', currentTime()); //Exports server values to UI 
+	}, 2000);
+
+	//Check For alarms once every minute
     setInterval(function(){
-		self.emit('tick', currentTime()); //Send current time to user
-		console.log('Server Time ' + currentTime());
+		//self.emit('tick', currentTime()); //Send current time to user
+		//console.log('Server Time ' + currentTime());
 
 		weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 

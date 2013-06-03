@@ -16,63 +16,44 @@
 			leds.fillColor(0,0,0); //Zero out strip
 			animate = !animate;
 			runAnimation();
-			console.log('Making the Sun Rise');
+			console.log('Making the Sun Rise at ' + currentTime());
 		}
 		if(id == 'off'){ animate = false; }
 	};
 
-	// 0  > Fade to 
-	// 4  > Blue	- 0, 50, 100
-	// 18 > Pink	- 170, 0, 220 
-	// 36 > Yellow	- 255, 255, 0
-	var counter = 0;
-	var phase2 = [
-		{r:0, g:0, b:0, numsteps: 1000},
-		{r:0, g:50, b:100, numsteps: 1000},
-		{r:170, g:0, b:220, numsteps: 1000},
-		{r:255, g:255, b:0, numsteps: 1000}
+	//Array of preset colors to fade through. 
+	var phase = [ //Steps - 2000
+		{r:0, g:0, b:0, numsteps: 500}, //Pitch Black
+		{r:0, g:25, b:50, numsteps: 500}, //Dark Blue Morning
+		{r:80, g:0, b:100, numsteps: 1000}, //Pink Sunrise
+		{r:250, g:225, b:0, numsteps: 2000} //Blinding Yellow Sunbeams 
 	];
-	var phase = [ //Steps - 1667
-		{r:0, g:0, b:0, numsteps: 1000},
-		{r:0, g:25, b:50, numsteps: 1000},
-		{r:85, g:0, b:110, numsteps: 1000},
-		{r:200, g:200, b:0, numsteps: 1000}
-	];
-	var steps = 1000;
-	var phase1 = [
-		{r:0, g:0, b:0, numsteps: steps},
-		{r:255, g:0, b:0, numsteps: steps},
-		{r:0, g:255, b:0, numsteps: steps},
-		{r:0, g:0, b:255, numsteps: steps},
-		{r:255, g:0, b:255, numsteps: steps},
-		{r:255, g:255, b:0, numsteps: steps},
-		{r:0, g:255, b:255, numsteps: steps},
-		{r:255, g:255, b:0, numsteps: steps},
-		{r:0, g:0, b:255, numsteps: steps},
-		{r:255, g:255, b:255, numsteps: steps},
-		{r:0, g:0, b:0, numsteps: steps}
-	];
+
+	var i, tempcounter, rdelta, gdelta, bdelta, counter=0;
 	function sunrise(){
-		var i = 0;
-		var tempcounter = 0;
+		i = 0;
+		tempcounter = 0;
+		//Determine current phase.
 		while(tempcounter <= counter){
 			tempcounter+=phase[i]['numsteps'];
 			i++;
 		}
-		//console.log(i);
+		//When phase is complete, exit program.
 		if(i >= phase.length){
 			animate = false;
+			console.log('Sunrise Complete at ' +  currentTime());
 			return;
 		}
-		var rdelta = (phase[i]['r'] - phase[i-1]['r'])/(phase[i-1]['numsteps']);
-		var gdelta = (phase[i]['g'] - phase[i-1]['g'])/(phase[i-1]['numsteps']);
-		var bdelta = (phase[i]['b'] - phase[i-1]['b'])/(phase[i-1]['numsteps']);
+		//Calculate change in current LED to next LED
+		rdelta = (phase[i]['r'] - phase[i-1]['r'])/(phase[i-1]['numsteps']);
+		gdelta = (phase[i]['g'] - phase[i-1]['g'])/(phase[i-1]['numsteps']);
+		bdelta = (phase[i]['b'] - phase[i-1]['b'])/(phase[i-1]['numsteps']);
+		//Send Colors to LED strip
 		leds.fillColor(
 			leds.r() + rdelta,
 			leds.g() + gdelta,
 			leds.b() + bdelta
 		);
-		//Set the led strip
 		counter++;
 	}
 
@@ -81,6 +62,31 @@
 	function runAnimation(){
 			if(animate){
 			sunrise();
-			setTimeout(runAnimation, 833); //Brightens every 30,000 milliseconds
+			setTimeout(runAnimation, 730); //Brightens every 30,000 milliseconds 
 		}
+	}
+	// 833 - 41 Minutes 11:26 to 12:07
+	// 125 - 4  Minutes
+	// 625 - 21 Minutes 4:32 to 4:53
+	// 730 - 4:58 to 5:23 
+
+	//Functions for testing.
+	function currentTime(){
+		var ctime = new Date();
+		var hours = ctime.getHours();
+		var minutes = ctime.getMinutes();
+		var seconds = ctime.getSeconds();
+
+		if(minutes < 10){
+			minutes = "0" + minutes;
+		}
+		var suffix = "AM";
+		if(hours >= 12){
+			suffix = "PM";
+			hours = hours - 12;
+		}
+		if(hours === 0){
+			hours = 12;
+		}
+		return hours + ":" + minutes + " " + seconds;
 	}

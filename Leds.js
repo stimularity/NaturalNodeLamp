@@ -23,7 +23,7 @@
 
 	exports.fillColor = function(r, g, b){
 		setLastColor(r, g, b);
-		console.log('Fill ' + r + ', ' + g + ', ' + b);
+		//console.log('Fill ' + r + ', ' + g + ', ' + b);
 		buff.fill(0x0); //Zero out buffer. Mad important.
 		for (var led = 0; led < this.pixelcount; led++) {
 			buff[led*3    ] = gamma[Math.round(g)];
@@ -46,14 +46,11 @@
 		strip.write(buff, emptybuff); //Write in Lovely Colors
 	}
 
-	//Wont save enpty colors.
+	//Will save enpty colors.
 	function setLastColor(r, g, b){
-		//var tolerance = 2;
-		//if(r > tolerance || b > tolerance || g > tolerance){
-			red = r;
-			green = g;
-			blue = b;
-		//}
+		red = r;
+		green = g;
+		blue = b;
 	}//
 
 	exports.getCurrentColor = function(){

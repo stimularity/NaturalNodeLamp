@@ -60,12 +60,14 @@
 
     <br />
 
-    Red
+<div id="sliders">
+    <div id="redval" class="badge badge-important"></div>
     <div class="slider" id="red"></div>
-    Green
+    <div id="greenval" class="badge badge-success"></div>
     <div class="slider" id="green"></div>
-    Blue
+    <div id="blueval" class="badge badge-info"></div>
     <div class="slider" id="blue"></div>
+</div><!-- /sliders -->
 
 
     <div id="alarms"></div><!-- /alarms -->
@@ -83,24 +85,26 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
-
-    var d = new Date();
-    var mh = d.getHours(); //0 - 23
-    var m = d.getMinutes(); //0 - 59
-
-    //console.log('mh:' + mh + ' m: ' + m);
-
     var socket = io.connect();
-    socket.emit('getAlarms');
+    socket.emit('getAlarms'); //Get alarms for init.
 
-    socket.on('news', function (data) { //Getting Data from server.
-      //console.log(data);
+    //Triggered every second by server.
+    socket.on('currentSliders', function(r, g, b){ //NOT Triggered on color change. 
+        //Set slider values from values on the server.
+        $( "#red" ).slider( "value", r );
+        $('#redval').empty().text(r);
+        $( "#green" ).slider( "value", g );
+        $('#greenval').empty().text(g);
+        $( "#blue" ).slider( "value", b );
+        $('#blueval').empty().text(b);
     });
 
+    //Triggered every second by server.
     socket.on('servertime', function(data){
         $('#servertime').empty().append(data['servertime']);
     });
 
+    //Called when adding or removing alarms. 
     socket.on('refreshAlarms', function(a){
         $.get('/alarms', function(data){
             $('#alarms').empty().append(data);
@@ -130,20 +134,17 @@
             });
         });//-get end
         
-
-        
-
-    });
+    });//-socket.on('refreshAlarm') end
 
     $(document).ready(function() {
 
         $( ".slider" ).slider({ max:255, min:0,
-        slide: function( event, ui ) {
-            value = $(this).slider('value');
-            id = $(this).attr('id');
-            //console.log(id + ": " + value);
-            socket.emit('interact', { id:id, value:value });
-        }
+            slide: function(event, ui) {
+                value = $(this).slider('value');
+                id = $(this).attr('id');
+                //console.log(id + ": " + value);
+                socket.emit('interact', { id:id, value:value }); //Sends color value to animations[i].interface
+            }
         });
 
         $(".button").click(function(){

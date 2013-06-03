@@ -25,8 +25,6 @@ require("fs").readdirSync("./animations").forEach(function(file) {
   console.log('animations['+file.slice(0, -3)+']');
 });
 
-animations['sunrise'].interface('sunrise',0);
-
 /*
  * Express Server
  */
@@ -62,33 +60,26 @@ io.sockets.on('connection', function (socket) {
   /*
    * GOING OUT >----------->
    */
-  //Refresh alarms on first connect.
+  //Refresh alarms on connect
   socket.emit('refreshAlarms'); //Tells browser to fetch alarms
 
+
+  //Updates the user interface with server values
+  timer.on('updateUserInterface', function(time){
+    socket.emit('currentSliders', leds.r(), leds.g(), leds.b()); //Send current sliders to UI
+    socket.emit('servertime', { servertime: time }); //Pushes server time to browser
+  });
 
   //Refresh Alarms for User
   timer.on('refreshAlarms', function(){
     socket.emit('refreshAlarms'); //Tells browser to fetch alarms
   });
 
-  //Refresh server time for User
-  timer.on('tick', function(time){
-    socket.emit('servertime', { servertime: time }); //Pushes server time to browser
-  });
-
   /*
    * COMING IN <-----------<
    */
 
-  /*/Tells Timer we would like some alarms please
-  socket.on('getAlarms',function(){
-    timer.emit('getAlarms');
-  }); 
 
-  //Update an existing alarm, no blocking
-  socket.on('getAlarms', function(alarm){
-    timer.emit('getAlarm', alarm);
-  });*/
 
   //Update an existing alarm.
   socket.on('updateAlarm', function(id, field, value){

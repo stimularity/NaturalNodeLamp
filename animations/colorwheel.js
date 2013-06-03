@@ -15,9 +15,8 @@
 		leds = parentleds;
 	};
 
-	var start=0, end=0, offset=0, color=0, r=0, b=0, g=0;
+	var start=0, end=0, offset=0, color=0, r=0, b=0, g=0, correction=1;
 	function colorWheel(){
-		var correction = 1;
 		if(end === 0){ end = leds.pixelcount-correction; }
 		size = end - start;
 		offset += 1;
