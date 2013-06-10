@@ -9,24 +9,35 @@
 		leds = parentleds;
 	};
 
+	//Each button has an ID and a Value
+	exports.gui = function(){
+		buttons[0] = {
+			'type':'button', //Display class button
+			'id':'sunrise', //Pass sunrise to interface. 
+			'value':0 //No variation, only 30 min sunrise 
+		};
+		return buttons;
+	};
+
 	//Animation options.
 	var animate = false;
 	exports.interface = function(id, value){
 		if(id == 'sunrise'){
 			leds.fillColor(0,0,0); //Zero out strip
 			animate = !animate;
+			counter = 0;
 			runAnimation();
 			console.log('Making the Sun Rise at ' + currentTime());
 		}
-		if(id == 'off'){ animate = false; }
+		if(id == 'off'){ animate = false; } //off is a reserved word.
 	};
 
 	//Array of preset colors to fade through. 
 	var phase = [ //Steps - 2000
-		{r:0, g:0, b:0, numsteps: 500}, //Pitch Black
-		{r:0, g:25, b:50, numsteps: 500}, //Dark Blue Morning
-		{r:80, g:0, b:100, numsteps: 1000}, //Pink Sunrise
-		{r:250, g:225, b:0, numsteps: 2000} //Blinding Yellow Sunbeams 
+		{r:0, g:0, b:0, numsteps: 1500}, //Pitch Black
+		{r:0, g:25, b:50, numsteps: 1500}, //Dark Blue Morning
+		{r:80, g:0, b:100, numsteps: 3000}, //Pink Sunrise
+		{r:250, g:225, b:0 } //Blinding Yellow Sunbeams 
 	];
 
 	var i, tempcounter, rdelta, gdelta, bdelta, counter=0;
@@ -39,7 +50,7 @@
 			i++;
 		}
 		//When phase is complete, exit program.
-		if(i >= phase.length){
+		if(i >= phase.length || animate === false){
 			animate = false;
 			console.log('Sunrise Complete at ' +  currentTime());
 			return;
@@ -62,13 +73,10 @@
 	function runAnimation(){
 			if(animate){
 			sunrise();
-			setTimeout(runAnimation, 730); //Brightens every 30,000 milliseconds 
+			setTimeout(runAnimation, 300); //Brightens every 30,000 milliseconds 
 		}
 	}
-	// 833 - 41 Minutes 11:26 to 12:07
-	// 125 - 4  Minutes
-	// 625 - 21 Minutes 4:32 to 4:53
-	// 730 - 4:58 to 5:23 
+
 
 	//Functions for testing.
 	function currentTime(){
@@ -88,5 +96,11 @@
 		if(hours === 0){
 			hours = 12;
 		}
-		return hours + ":" + minutes + " " + seconds;
+		return hours + ":" + minutes + " " + suffix;
 	}
+
+		// 833 - 41 Minutes 11:26 to 12:07
+	// 125 - 4  Minutes
+	// 625 - 21 Minutes 4:32 to 4:53
+	// 730 - 24 minutes 12:10 to 12:34
+	// 800 - 27 minutes 9:29 to 9:56

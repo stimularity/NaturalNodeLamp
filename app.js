@@ -9,8 +9,7 @@ var app = express();
 var server = http.createServer(app);
 
 var leds = require('./Leds'); //No interface, base of all library functions.
-leds.fillColor(0,0,0);
-//var db = require('./Database'); //All Database access functions
+leds.fillColor(0,0,0); //Zero out leds for 
 var Time = require('./Time'); //Global Timer and time function.
 var timer = new Time(); // create an instance of the Time class
 
@@ -19,20 +18,20 @@ var timer = new Time(); // create an instance of the Time class
  */
 var animations  = [];
 require("fs").readdirSync("./animations").forEach(function(file) {
-  var filename = file.slice(0, -3);
-  animations[filename] = require("./animations/"+filename);
-  animations[filename].init(leds);
-  console.log('animations['+file.slice(0, -3)+']');
+  var filename = file.slice(0, -3); //Get App File Name
+  animations[filename] = require("./animations/"+filename); //Put into animatios array
+  animations[filename].init(leds); //Init Animations, pass LED's
+  console.log('animations['+file.slice(0, -3)+']'); //Tell the world how great you are
 });
 
 /*
  * Express Server
  */
-
 app.configure(function(){
   app.set('port', process.env.PORT || 80); //Set port
   app.set('views', __dirname + '/views'); //Dirname for templates
   app.set('view engine', 'ejs'); //Use EJS templating engine
+  app.set('animations', animations); //Pass animations to app for use in controlers
   app.use(express.favicon()); //Use the express favicon
   app.use(express.logger('dev')); //Set environment
   app.use(express.bodyParser()); //Does something with cookies
@@ -44,7 +43,7 @@ app.configure(function(){
 app.get('/', routes.index); //We currently ONLY need index route.
 app.get('/alarms', routes.alarms); //Exports alarm data to drowser
 app.get('/alarmentry', routes.alarmentry); //Displays functioning alarm entry pad
-app.get('/alarmstyle', routes.alarmstyle); //Displays buttons to select ringer style
+app.get('/graphical', routes.graphical); //Displays buttons to select ringer style
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -125,6 +124,5 @@ function runAnimation(id, value){
     animations[x].interface(id, value);
   }
 }
-
 
 

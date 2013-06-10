@@ -12,6 +12,7 @@ exports.alarms = function(req, res){
 		for (var i = 0; i < data.length; i++) {
 			var ampm = 'AM';
 			if(data[i]['hour'] > 12){ data[i]['hour']-=12; ampm = 'PM'; }
+			if(data[i]['minute'].length == 2){ data[i]['minute'] = '0' + data[i]['minute']; } //todo this statement doesn't prepend a 0. It sucks.
 			data[i]['time'] = data[i]['hour'] + ':' + data[i]['minute'] + ' ' + ampm;
 		}
 
@@ -28,11 +29,17 @@ exports.alarmentry = function(req, res){
 };
 
 //Renders a little pannel that allows for alarm selection
-exports.alarmstyle = function(req, res){
-	//get id from req, on click of button, update alarm.
-	var buttons = []; //Get an array of bunnons for alarm styles
-	res.render('alarmstyle',{
-		title:'Select and alarm',
-		buttons: buttons
+exports.graphical = function(req, res){
+	var animations = res.app.settings['animations'];
+
+	for(var key in animations){
+		if(typeof(animations[key].gui) != "undefined"){ //Check for buttons
+			console.log(key + ' has buttons');
+		}
+	}
+
+	res.render('graphical',{
+		title:'Some Gui shit going on here.',
+		buttons: 'buttons'
 	});
 };

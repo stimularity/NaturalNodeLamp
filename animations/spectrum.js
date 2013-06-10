@@ -42,9 +42,51 @@
 		//}//Optimize by moving out of Forloop 
 	}//
 
+	//Array of preset colors to fade through. 
+	var steps = 250;
+	var phase = [ //Steps - 2000
+		{r:255, g:0, b:0, numsteps: steps/2}, //Red
+		{r:255, g:0, b:255, numsteps: steps}, //Purple
+		{r:0, g:0, b:255, numsteps: steps}, // Blue
+		{r:0, g:255, b:255, numsteps: steps}, //Cyan
+		{r:0, g:255, b:0, numsteps: steps}, //Green
+		{r:255, g:255, b:0, numsteps: steps}, //Yellow
+		{r:255, g:0, b:0} //Red
+	];
+
+	var i, tempcounter, rdelta, gdelta, bdelta, counter=0;
+	function mathmos(){
+		if(animate === false){
+			return;
+		}
+		i = 0;
+		tempcounter = 0;
+		//Determine current phase.
+		while(tempcounter <= counter){
+			tempcounter+=phase[i]['numsteps'];
+			i++;
+		}
+		if(i == phase.length){
+			counter = 0;
+			i = 1;
+		}
+		//Calculate change in current LED to next
+		rdelta = (phase[i]['r'] - phase[i-1]['r'])/(phase[i-1]['numsteps']);
+		gdelta = (phase[i]['g'] - phase[i-1]['g'])/(phase[i-1]['numsteps']);
+		bdelta = (phase[i]['b'] - phase[i-1]['b'])/(phase[i-1]['numsteps']);
+		//Send Colors to LED strip
+		leds.fillColor(
+			leds.r() + rdelta,
+			leds.g() + gdelta,
+			leds.b() + bdelta
+		);
+		//When phase is complete, loop program.
+		counter++;
+	}//
+
 	function loopMathmos(){
 		if(animate){
-			mathmos2();
+			mathmos();
 			setTimeout(loopMathmos, 100);
 		}
 	}

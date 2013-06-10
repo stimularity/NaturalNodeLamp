@@ -46,11 +46,14 @@
 		strip.write(buff, emptybuff); //Write in Lovely Colors
 	}
 
-	//Will save enpty colors.
+	//Wont save enpty colors.
 	function setLastColor(r, g, b){
-		red = r;
-		green = g;
-		blue = b;
+		//var tolerance = 2;
+		//if(r > tolerance || b > tolerance || g > tolerance){
+			if(r >= 0) red = r;
+			if(g >= 0) green = g;
+			if(b >= 0) blue = b;
+		//}
 	}//
 
 	exports.getCurrentColor = function(){

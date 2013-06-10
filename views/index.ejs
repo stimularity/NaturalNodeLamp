@@ -26,7 +26,7 @@
           <a class="brand" href="#"><%= title %></a>
 
             <ul class="nav">
-              <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime">Yo Mamma</span></a></li>
+              <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime"></span></a></li>
               <li><a href="#about">About</a></li>
             </ul>
 
@@ -60,17 +60,17 @@
 
     <br />
 
-<div id="sliders">
-    <div id="redval" class="badge badge-important"></div>
+    Red
     <div class="slider" id="red"></div>
-    <div id="greenval" class="badge badge-success"></div>
+    Green
     <div class="slider" id="green"></div>
-    <div id="blueval" class="badge badge-info"></div>
+    Blue
     <div class="slider" id="blue"></div>
-</div><!-- /sliders -->
 
 
     <div id="alarms"></div><!-- /alarms -->
+
+    <div id="graphical"></di><!-- /graphical -->
 
     
 
@@ -85,31 +85,25 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
+
+    var d = new Date();
+    var mh = d.getHours(); //0 - 23
+    var m = d.getMinutes(); //0 - 59
+
+    //console.log('mh:' + mh + ' m: ' + m);
+
     var socket = io.connect();
-    socket.emit('getAlarms'); //Get alarms for init.
+    socket.emit('getAlarms');
 
-    //Triggered every second by server.
-    socket.on('currentSliders', function(r, g, b){ //NOT Triggered on color change. 
-        //Set slider values from values on the server.
-        $( "#red" ).slider( "value", r );
-        $('#redval').empty().text(r);
-        $( "#green" ).slider( "value", g );
-        $('#greenval').empty().text(g);
-        $( "#blue" ).slider( "value", b );
-        $('#blueval').empty().text(b);
-    });
-
-    //Triggered every second by server.
     socket.on('servertime', function(data){
         $('#servertime').empty().append(data['servertime']);
     });
 
-    //Called when adding or removing alarms. 
     socket.on('refreshAlarms', function(a){
-        $.get('/alarms', function(data){
-            $('#alarms').empty().append(data);
+        $.get('/alarms', function(data){ //Get /alarms from server
+            $('#alarms').empty().append(data); //Empty current alarms box
 
-            $('#alarms div .btn').unbind().click(function(){
+            $('#alarms div .btn').unbind().click(function(){ //Unbind all values then 
                 var field = $(this).attr('title'); //DB row name
                 var id = $(this).parent().parent('.row-fluid').attr('id'); //Id in DB
                 //Toggle value
@@ -117,8 +111,8 @@
                 if($(this).attr('value') == 0){ value = 1; }
 
                 //Send to server -> Directly into DB!
-                socket.emit('updateAlarm', id, field, value);
-                $(this).addClass('btn-primary');
+                socket.emit('updateAlarm', id, field, value); //Send choice to server
+                $(this).addClass('btn-primary'); 
             });
 
             //Bind events to all the shit here.
@@ -134,17 +128,20 @@
             });
         });//-get end
         
-    });//-socket.on('refreshAlarm') end
+
+        
+
+    });
 
     $(document).ready(function() {
 
         $( ".slider" ).slider({ max:255, min:0,
-            slide: function(event, ui) {
-                value = $(this).slider('value');
-                id = $(this).attr('id');
-                //console.log(id + ": " + value);
-                socket.emit('interact', { id:id, value:value }); //Sends color value to animations[i].interface
-            }
+        slide: function( event, ui ) {
+            value = $(this).slider('value');
+            id = $(this).attr('id');
+            //console.log(id + ": " + value);
+            socket.emit('interact', { id:id, value:value });
+        }
         });
 
         $(".button").click(function(){
@@ -159,6 +156,11 @@
             });
         });
 
+        $.get('/graphical', function(data){
+            $('#graphical').empty().append(data); //Empty Box and append button data
+            //Available Divs, title, buttons, description
+
+        });
 
     });//
 
