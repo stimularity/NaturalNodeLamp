@@ -12,7 +12,7 @@ exports.alarms = function(req, res){
 		for (var i = 0; i < data.length; i++) {
 			var ampm = 'AM';
 			if(data[i]['hour'] > 12){ data[i]['hour']-=12; ampm = 'PM'; }
-			if(data[i]['minute'].length == 2){ data[i]['minute'] = '0' + data[i]['minute']; } //todo this statement doesn't prepend a 0. It sucks.
+			if(String(data[i]['minute']).length == 1){ data[i]['minute'] = '0' + data[i]['minute']; } //Prepend zero to things like 10:05
 			data[i]['time'] = data[i]['hour'] + ':' + data[i]['minute'] + ' ' + ampm;
 		}
 

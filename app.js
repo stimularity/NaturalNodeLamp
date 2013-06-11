@@ -54,8 +54,7 @@ server.listen(app.get('port'), function(){
  * Sockit.io 
  */
 var io = require("socket.io").listen(server, {log: false}); //Start socket.io
-//Socket.io bondings for events, yo! 
-io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) { //Socket.io bindings for events, yo! 
   /*
    * GOING OUT >----------->
    */
@@ -65,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 
   //Updates the user interface with server values
   timer.on('updateUserInterface', function(time){
-    socket.emit('currentSliders', leds.r(), leds.g(), leds.b()); //Send current sliders to UI
+    socket.emit('currentSliders', leds.r(), leds.g(), leds.b()); //todo doesnt work. Send current sliders to UI
     socket.emit('servertime', { servertime: time }); //Pushes server time to browser
   });
 
@@ -108,21 +107,31 @@ io.sockets.on('connection', function (socket) {
  * Events Area (Members Only)
  */
 
+//When an alarm is triggered
 timer.on('alarm', function(id, value) {
-    console.log('♬ ♫♬ ALARM ♬ ♫♬');
-    console.log(id + " " + value);
-    runAnimation(id, value);
+    console.log('♬ ♫♬ ALARM ♬ ♫♬' + id + " " + value);
+    runAnimation(id, value); //Triggers alarm passed from DB
 });
 
 
 /*
  * Misc Functions
  */
+var clearid = '';
 function runAnimation(id, value){
   //console.log('Runnig animation ' + id + ', value: ' + value);
   for(var x in animations){
     animations[x].interface(id, value);
   }
-}
+
+  //Set Automatic Lights off timer after two hours of light being on.
+  clearTimeout(clearid); //Clear previously set time outs
+  if(id != 'off'){ //if Not an off command, set a timer. 
+    clearid = setTimeout(function(){ //Start a timer
+      console.log('Timeout Activated. Turning off lights.'); //After two hours, turn off LEDs
+      runAnimation('off', 0); //Turn off lights command.
+    }, 7200000); //2 Hours - 120 min * 60 sec * 1000 milliseconds
+  }
+}//
 
 

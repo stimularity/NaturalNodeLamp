@@ -2,7 +2,7 @@
 	var animate = false;
 	exports.interface = function(id, value){
 		if(id == 'spectrum'){
-			leds.fillColor(0,0,0); //Turn off color wheel
+			//leds.fillColor(0,0,0); //Turn off color wheel
 			animate = !animate;
 			loopMathmos();
 			console.log('Mothmosing!!!');
@@ -87,6 +87,6 @@
 	function loopMathmos(){
 		if(animate){
 			mathmos();
-			setTimeout(loopMathmos, 100);
+			setTimeout(loopMathmos, 30);
 		}
 	}
