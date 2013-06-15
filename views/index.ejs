@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+	<title><%= title %></title>
 
-    <link href="/stylesheets/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
+	<link href="/stylesheets/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
 	
 
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
 
 	
 
@@ -15,181 +15,195 @@
   <body>
 <meta name="container" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=320, height=device-height, target-densitydpi=medium-dpi" />
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#"><%= title %></a>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="navbar-inner">
+		<div class="container">
+		  <button type="button" class="btn btn-navbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="brand" href="#"><%= title %></a>
 
-            <ul class="nav">
-              <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime"></span></a></li>
-              <li><a href="#about">About</a></li>
-            </ul>
+			<ul class="nav">
+			  <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime"></span></a></li>
+			  <li><a href="#about">About</a></li>
+			</ul>
 
-        </div>
-      </div>
-    </div>
+		</div>
+	  </div>
+	</div>
 
-    <div class="container" name> <!-- /container -->
+	<div class="container" name> <!-- /container -->
 
-    <h1></h1>
-    <p>Welcome to <%= title %> </p>
+	<h1></h1>
+	<p>Welcome to <%= title %> </p>
 
-    <div class="btn-group">
-        <button class="btn button" id="on">on</button>
-        <button class="btn button" id="off">off</button>
-    </div>
-    <div class="btn-group">
-        <button class="btn button" id="beam">Beam</button>
-        <button class="btn button" id="colorwheel">wheel</button>
-        <button class="btn button" id="spectrum">Mathmos</button>
-        <button class="btn button" id="sunrise">Sunrise</button>
-        <button class="btn button" id="random">random</button>
-    </div>
-    <div class="btn-group">
-        <button class="btn button" id="lighten">lighten</button>
-        <button class="btn button" id="saturate">saturate</button>
-        <button class="btn button" id="darken">darken</button>
-    </div>
+	<div class="btn-group">
+		<button class="btn button" id="on">on</button>
+		<button class="btn button" id="off">off</button>
+	</div>
+	<div class="btn-group">
+		<button class="btn button" id="beam">Beam</button>
+		<button class="btn button" id="colorwheel">wheel</button>
+		<button class="btn button" id="spectrum">Mathmos</button>
+		<button class="btn button" id="sunrise">Sunrise</button>
+		<button class="btn button" id="random">random</button>
+	</div>
+	<div class="btn-group">
+		<button class="btn button" id="lighten">lighten</button>
+		<button class="btn button" id="saturate">saturate</button>
+		<button class="btn button" id="darken">darken</button>
+	</div>
 
-    <button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
+	<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
 
-    <br />
+	<br />
 
-    Red
-    <div class="slider" id="red"></div>
-    Green
-    <div class="slider" id="green"></div>
-    Blue
-    <div class="slider" id="blue"></div>
-
-
-    <div id="alarms"></div><!-- /alarms -->
-
-    <div id="graphical"></di><!-- /graphical -->
-
-    
+	Red
+	<div class="slider" id="red"></div>
+	Green
+	<div class="slider" id="green"></div>
+	Blue
+	<div class="slider" id="blue"></div>
 
 
-    </div> <!-- /container -->
+	<div id="alarms"></div><!-- /alarms -->
 
-    
-    
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+	<div id="graphical"></di><!-- /graphical -->
+
+	
+
+
+	</div> <!-- /container -->
+
+	
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
 
-    var d = new Date();
-    var mh = d.getHours(); //0 - 23
-    var m = d.getMinutes(); //0 - 59
+	var d = new Date();
+	var mh = d.getHours(); //0 - 23
+	var m = d.getMinutes(); //0 - 59
 
-    //console.log('mh:' + mh + ' m: ' + m);
+	//console.log('mh:' + mh + ' m: ' + m);
 
-    var socket = io.connect();
-    socket.emit('getAlarms');
+	var socket = io.connect();
+	socket.emit('getAlarms');
 
-    socket.on('servertime', function(data){
-        $('#servertime').empty().append(data['servertime']);
-    });
+	socket.on('servertime', function(data){
+		$('#servertime').empty().append(data['servertime']);
+	});
 
-    socket.on('refreshAlarms', function(a){
-        $.get('/alarms', function(data){ //Get /alarms from server
-            $('#alarms').empty().append(data); //Empty current alarms box
+	socket.on('refreshAlarms', function(a){
+		$.get('/alarms', function(data){ //Get /alarms from server
+			$('#alarms').empty().append(data); //Empty current alarms box
 
-            $('#alarms div .btn').unbind().click(function(){ //Unbind all values then 
-                var field = $(this).attr('title'); //DB row name
-                var id = $(this).parent().parent('.row-fluid').attr('id'); //Id in DB
-                //Toggle value
-                var value = 0 //Value we want to set in DB
-                if($(this).attr('value') == 0){ value = 1; }
+			$('#alarms div .btn').unbind().click(function(){ //Unbind all values then 
+				var field = $(this).attr('title'); //DB row name
+				var id = $(this).parent().parent('.row-fluid').attr('id'); //Id in DB
+				//Toggle value
+				var value = 0 //Value we want to set in DB
+				if($(this).attr('value') == 0){ value = 1; }
 
-                //Send to server -> Directly into DB!
-                socket.emit('updateAlarm', id, field, value); //Send choice to server
-                $(this).addClass('btn-primary'); 
-            });
+				//Send to server -> Directly into DB!
+				socket.emit('updateAlarm', id, field, value); //Send choice to server
+				$(this).addClass('btn-primary'); 
+			});
 
-            //Bind events to all the shit here.
-            $('.deletebutton').unbind().click(function(){
-                var id = $(this).parent('.row-fluid').attr('id');
-                console.log('Delete ' + id);
-                socket.emit('deleteAlarm', id); //Does not refresh alarms
-                $(this).parent('.row-fluid').fadeOut(250);
-            });
+			//Bind events to all the shit here.
+			$('.deletebutton').unbind().click(function(){
+				var id = $(this).parent('.row-fluid').attr('id');
+				console.log('Delete ' + id);
+				socket.emit('deleteAlarm', id); //Does not refresh alarms
+				$(this).parent('.row-fluid').fadeOut(250);
+			});
 
-            $('.icon-bell').click(function(){
-                var id = 2; //todo get row id, post to view 
-            });
-        });//-get end
-        
+			$('.icon-bell').click(function(){
+				var id = 2; //todo get row id, post to view 
+			});
+		});//-get end
+		
 
-        
+		
 
-    });
+	});
 
-    $(document).ready(function() {
+	$(document).ready(function() {
 
-        $( ".slider" ).slider({ max:255, min:0,
-        slide: function( event, ui ) {
-            value = $(this).slider('value');
-            id = $(this).attr('id');
-            //console.log(id + ": " + value);
-            socket.emit('interact', { id:id, value:value });
-        }
-        });
+		$( ".slider" ).slider({ max:255, min:0,
+		slide: function( event, ui ) {
+			value = $(this).slider('value');
+			id = $(this).attr('id');
+			//console.log(id + ": " + value);
+			socket.emit('interact', { id:id, value:value });
+		}
+		});
 
-        $(".button").click(function(){
-            id = $(this).attr('id');
-            //console.log("Pressed: " + id);
-            socket.emit('interact', { id:id, value:1 });
-        });
+		$(".button").click(function(){
+			id = $(this).attr('id');
+			//console.log("Pressed: " + id);
+			socket.emit('interact', { id:id, value:1 });
+		});
 
-        $('#newalarm').click(function(){
-            $.get('/alarmentry', function(data){
-                lightBox(500, 500, data);
-            });
-        });
+		$('#newalarm').click(function(){
+			$.get('/alarmentry', function(data){
+				lightBox(500, 0, data);
+			});
+		});
 
-        $.get('/graphical', function(data){
-            $('#graphical').empty().append(data); //Empty Box and append button data
-            //Available Divs, title, buttons, description
+		$.get('/graphical', function(data){
+			$('#graphical').empty().append(data); //Empty Box and append button data
+			//Available Divs, title, buttons, description
 
-        });
+		});
 
-    });//
+	});//
 
-    
+	//Max's custom animated lightbox plugin. Quite magical.
+	function lightBox(w, h, content) {
+		$('#lightbox, #lightboxcore').remove(); //Destroy old lightboxes. There can only be one.
+		$('body').prepend('<div id="lightboxcore">'+content+'</div>'); //Append inner box
 
-    
+		//Default values if none are set.
+		marginsize = 200;
+		width = $(window).width() - marginsize; 
+		height = $(window).height() - marginsize;
 
-    //Max's custom animated lightbox plugin. Quite magical.
-    function lightBox(w,h,content){
-        $('html').prepend('<div id="lightbox"></div>').fadeIn(400); //Add outer box
-        $('#lightbox').css({'height':$(document).height(), 'width':$(document).width()});
-        $("#lightbox").click(function() {
-            closeLightbox();
-        });
-        $('body').prepend('<div id="lightboxcore"></div>'); //Append inner box
-        $('#lightboxcore').css({'height':5, 'width':5});
-        $('#lightboxcore').css("top", (($(window).height() - $('#lightboxcore').outerHeight()) / 2) +  $(window).scrollTop() + "px");
-        $('#lightboxcore').css("left", (($(window).width() - $('#lightboxcore').outerWidth()) / 2) +  $(window).scrollLeft() + "px");
-        $('#lightboxcore').animate({
-            width: [w, 'swing'], left: '-='+(w/2),
-            height: [h, 'swing'], top: '-='+(h/2)
-            }, 500, function() {
-                $('#lightboxcore').append(content);
-        });
-    }
-    function closeLightbox(){
-        $('#lightbox').fadeOut(500);
-        $('#lightboxcore').fadeOut(300);
-    }
+		if(w != 0 && h == 0){ //Width is set, but not height, get height from content.	
+			height = $('#lightboxcore').height(); //Get Height of box used for centering, height is set dynamically.
+			width = w;
+		}
+		if(w == 0 && h != 0){ //Width is set, use default height. 
+			height = h;
+		}
+		if(w != 0 && h != 0){ //Use user inputs. 
+			width = w;
+			height = h;
+		}
+		
+		$('#lightboxcore').css({'width': width, 'height':height}); //Set width of lightboxcore
+
+		//Add backdrop to DOm
+		$('html').prepend('<div id="lightbox"></div>').fadeIn(400); 
+		$('#lightbox').css({'height': $(document).height(), 'width': $(document).width()}); //Set proper size
+		$("#lightbox").click(function() {
+			closeLightbox(); //Bind close event to backdrop
+		});
+		//Center the core on page
+		$('#lightboxcore').css("top", (($(window).height() - $('#lightboxcore').outerHeight()) / 2) + $(window).scrollTop() + "px");
+		$('#lightboxcore').css("left", (($(window).width() - $('#lightboxcore').outerWidth()) / 2) + $(window).scrollLeft() + "px");
+		//Make it visible. 
+		$('#lightboxcore').hide().fadeIn(500);
+	}
+	function closeLightbox(){
+		$('#lightbox').fadeOut(500);
+		$('#lightboxcore').fadeOut(300);
+	}
 
 
 </script>
