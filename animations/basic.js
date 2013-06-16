@@ -10,6 +10,37 @@
 		leds.fillColor(color['r'],color['b'],color['g']); //Set strip that color.
 	}
 
+	//Each button has an ID and a Value
+	exports.getInterface = function(){
+		buttons = [];
+		buttons.push({
+			title:'Random',
+			type:'button',
+			id:'random',
+			value:0
+		});
+		buttons.push({
+			title:'Darken',
+			type:'button',
+			id:'darken',
+			value:0
+		});
+		buttons.push({
+			title:'Lighten',
+			type:'button',
+			id:'lighten',
+			value:0
+		});
+		buttons.push({
+			title:'Saturate',
+			type:'button',
+			id:'saturate',
+			value:0
+		});
+
+		return buttons;
+	};
+
 	//Only two accessable functions
 	exports.interface = function(id, value){
 		if(id == 'random'){ randomColor(); }

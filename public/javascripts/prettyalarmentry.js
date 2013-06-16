@@ -43,7 +43,7 @@
         var col = input.indexOf(':');
         if(col != -1){
             var twodigits = input.substring(col+1, input.length+1);
-            if(twodigits.length == 2){ renderPadButtons([1,2,3,4,5,6,7,8,8,9,0]) }
+            if(twodigits.length == 2){ renderPadButtons([1,2,3,4,5,6,7,8,8,9,0]); }
         }
 
         $('#submit').addClass('disable');
@@ -73,7 +73,7 @@
         $('#backspace').unbind().click(function(){
             var current = $('#alarmdisplay').text();
             var end = current.substring(current.length-1, current.length);
-            if(end.indexOf(':') == 0 || end.indexOf('M') == 0){
+            if(end.indexOf(':') === 0 || end.indexOf('M') === 0){
                 $('#alarmdisplay').text(current.substring(0,current.length-2));
             } else {
                 $('#alarmdisplay').text(current.substring(0,current.length-1));

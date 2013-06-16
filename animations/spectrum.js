@@ -10,6 +10,18 @@
 		if(id == 'off'){ animate = false; }
 	};
 
+	//Each button has an ID and a Value
+	exports.getInterface = function(){
+		buttons = [];
+		buttons[0] = {
+			title:'Color Spectrum',
+			type:'button', //Display class button
+			id:'spectrum', //Pass sunrise to interface. 
+			value:0 //No variation, only 30 min sunrise 
+		};
+		return buttons;
+	};
+
 	var leds;
 	exports.init = function(parentleds){
 		leds = parentleds;

@@ -36,44 +36,12 @@
 
 	<div class="container" name> <!-- /container -->
 
-	<h1></h1>
-	<p>Welcome to <%= title %> </p>
+		<!-- Graphical Interface items collected from /graphical -->
+		<div id="graphical"></div><!-- /graphical -->
 
-	<div class="btn-group">
-		<button class="btn button" id="on">on</button>
-		<button class="btn button" id="off">off</button>
-	</div>
-	<div class="btn-group">
-		<button class="btn button" id="beam">Beam</button>
-		<button class="btn button" id="colorwheel">wheel</button>
-		<button class="btn button" id="spectrum">Mathmos</button>
-		<button class="btn button" id="sunrise">Sunrise</button>
-		<button class="btn button" id="random">random</button>
-	</div>
-	<div class="btn-group">
-		<button class="btn button" id="lighten">lighten</button>
-		<button class="btn button" id="saturate">saturate</button>
-		<button class="btn button" id="darken">darken</button>
-	</div>
+		<br />
 
-	<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
-
-	<br />
-
-	Red
-	<div class="slider" id="red"></div>
-	Green
-	<div class="slider" id="green"></div>
-	Blue
-	<div class="slider" id="blue"></div>
-
-
-	<div id="alarms"></div><!-- /alarms -->
-
-	<div id="graphical"></di><!-- /graphical -->
-
-	
-
+		<div id="alarms"></div><!-- /alarms -->
 
 	</div> <!-- /container -->
 
@@ -134,8 +102,28 @@
 	});
 
 	$(document).ready(function() {
+		
+		$.get('/graphical', function(data){
+			$('#graphical').empty().append(data); //Empty Box and append button data
+			activateButtons(); //Bind actions to buttons
+			$('.controlpannel').hide();
+			$('#home').fadeIn(1000);
 
-		$( ".slider" ).slider({ max:255, min:0,
+			//Activate tab and display proper pannel.
+			$('#guitabs li').click(function(){
+				$('#guitabs li').removeClass('active');
+				area = $(this).text();
+				$('.controlpannel').hide(); //Hide other pannels
+				$('#'+area).fadeIn(500);
+				$(this).addClass('active');
+			});
+			
+		});
+
+	});//
+
+	function activateButtons(){
+		$( ".slider" ).unbind().slider({ max:255, min:0,
 		slide: function( event, ui ) {
 			value = $(this).slider('value');
 			id = $(this).attr('id');
@@ -144,25 +132,18 @@
 		}
 		});
 
-		$(".button").click(function(){
+		$(".button").unbind().click(function(){
 			id = $(this).attr('id');
 			//console.log("Pressed: " + id);
 			socket.emit('interact', { id:id, value:1 });
 		});
 
-		$('#newalarm').click(function(){
+		$('#newalarm').unbind().click(function(){
 			$.get('/alarmentry', function(data){
 				lightBox(500, 0, data);
 			});
 		});
-
-		$.get('/graphical', function(data){
-			$('#graphical').empty().append(data); //Empty Box and append button data
-			//Available Divs, title, buttons, description
-
-		});
-
-	});//
+	}
 
 	//Max's custom animated lightbox plugin. Quite magical.
 	function lightBox(w, h, content) {

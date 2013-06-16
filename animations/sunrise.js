@@ -10,12 +10,14 @@
 	};
 
 	//Each button has an ID and a Value
-	exports.gui = function(){
-		buttons[0] = {
-			'type':'button', //Display class button
-			'id':'sunrise', //Pass sunrise to interface. 
-			'value':0 //No variation, only 30 min sunrise 
-		};
+	exports.getInterface = function(){
+		buttons = [];
+		buttons.push({
+			title:'Start Sunrise',
+			type:'button', //Display class button
+			id:'sunrise', //Pass sunrise to interface. 
+			value:0 //No variation, only 30 min sunrise 
+		});
 		return buttons;
 	};
 

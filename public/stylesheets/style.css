@@ -56,6 +56,14 @@ div#alarms {
 	box-shadow:         inset 0px 0px 0px 0px #FFF;
 }
 
+/* ---------------------------------- Button Interface Styles  ---------------------------------- */
+.controlpannel {
+	/*border: thin solid #23b7ff;*/
+}
+.link {
+	cursor: pointer;
+}
+
 /* ---------------------------------- Lightbox Styles  ---------------------------------- */
 #lightbox {
 	background:#333;

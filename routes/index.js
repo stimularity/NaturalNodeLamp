@@ -12,7 +12,7 @@ exports.alarms = function(req, res){
 		for (var i = 0; i < data.length; i++) {
 			var ampm = 'AM';
 			if(data[i]['hour'] > 12){ data[i]['hour']-=12; ampm = 'PM'; }
-			if(String(data[i]['minute']).length == 1){ data[i]['minute'] = '0' + data[i]['minute']; } //Prepend zero to things like 10:05
+			if(String(data[i]['minute']).length == 1){ data[i]['minute'] = '0' + data[i]['minute']; } //Prepend zero to things like 10:0
 			data[i]['time'] = data[i]['hour'] + ':' + data[i]['minute'] + ' ' + ampm;
 		}
 
@@ -25,21 +25,37 @@ exports.alarms = function(req, res){
 
 //Renders the alarm input pad. View includes javascript for functionality.
 exports.alarmentry = function(req, res){
-	res.render('alarmentry');
+	res.render('alarmentry'); //Simply render template
 };
 
 //Renders a little pannel that allows for alarm selection
 exports.graphical = function(req, res){
 	var animations = res.app.settings['animations'];
+	var guielements = [];
+	var counter = 1;
+	//Init for misc buttons
+	guielements[0] = {};
+	guielements[0]['category'] = 'misc';
+	guielements[0]['gui'] = [];
 
 	for(var key in animations){
-		if(typeof(animations[key].gui) != "undefined"){ //Check for buttons
-			console.log(key + ' has buttons');
+		if(typeof(animations[key].getInterface) !== "undefined"){ //Check for buttons
+			console.log(key + ' has ' + animations[key].getInterface().length + ' buttons.');
+
+			if(animations[key].getInterface().length > 1){
+				index = guielements.length;
+				guielements[index] = {}; //Make new dictionary for current Counter
+				guielements[index]['category'] = key; //Set KEY 
+				guielements[index]['gui'] = animations[key].getInterface(); //Set gui with [{},{},{}]
+			} else {
+				guielements[0]['gui'].push(animations[key].getInterface()[0]);
+			}
+			counter++;
 		}
 	}
 
 	res.render('graphical',{
 		title:'Some Gui shit going on here.',
-		buttons: 'buttons'
+		gui: guielements
 	});
 };

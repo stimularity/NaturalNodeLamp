@@ -1,5 +1,42 @@
-For each item, if it has more than one button, give it a tab, otherwise Just throw it into a general div. 
+<!-- For loop for Tabs -->
+<ul class="nav nav-tabs" id="guitabs">
+	<li class="active"><a class="link">home</a></li>
+	<% for(var i=0; i<gui.length; i++) {%>
+		<li><a class="link"><%= gui[i]['category'] %></a></li>
+	<% } %>
+</ul>
 
-General Div
+<!-- For loop for button Divs -->
+<div id="home" class="controlpannel">
+	<div class="btn-group">
+		<button class="btn button" id="on">on</button>
+		<button class="btn button" id="off">off</button>
+	</div>
+	<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
+	<br />
+	Red
+	<div class="slider" id="red"></div>
+	Green
+	<div class="slider" id="green"></div>
+	Blue
+	<div class="slider" id="blue"></div>
+</div>
 
-Tabbed area
+<% for(var i=0; i<gui.length; i++) {%>
+	<div id="<%= gui[i]['category'] %>" class="controlpannel">
+		<% for(var k=0; k<gui[i]['gui'].length; k++) {%>
+			<button class="btn button" id="<%= gui[i]['gui'][k]['id'] %>"><%= gui[i]['gui'][k]['title'] %></button>
+		<% } %>
+	</div>
+<% } %>
+
+<!--  
+	New tab for each i.
+		Add gui as specified
+		add sliders as specified
+		add info as specified. 
+
+		if type == button
+			id= value= 
+
+-->

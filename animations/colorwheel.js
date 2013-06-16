@@ -11,6 +11,18 @@
 		if(id == 'off'){ animate = false; }
 	};
 
+	//Each button has an ID and a Value
+	exports.getInterface = function(){
+		buttons = [];
+		buttons[0] = {
+			title:'Activate Colorwheel',
+			type:'button', //Display class button
+			id:'colorwheel', //Pass sunrise to interface. 
+			value:0 //No variation, only 30 min sunrise 
+		};
+		return buttons;
+	};
+
 	exports.init = function(parentleds){
 		leds = parentleds;
 	};
