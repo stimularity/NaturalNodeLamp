@@ -10,6 +10,7 @@
 	var emptybuff = new Buffer(this.pixelcount * 3 + 1); //Create Buffer that will eventually be written out
 	emptybuff.fill(0x0);
 
+	var maximumbrightness = 100;
 	var red = 0;
 	var green = 0;
 	var blue = 0;
@@ -22,39 +23,54 @@
 
 
 	exports.fillColor = function(r, g, b){
-		setLastColor(r, g, b);
-		//console.log('Fill ' + r + ', ' + g + ', ' + b);
+		/* limit = limitBrightness(r, g, b);
+		r = limit[0];
+		g = limit[1];
+		b = limit[2];
+		console.log('Fill ' + r + ', ' + g + ', ' + b); */
 		buff.fill(0x0); //Zero out buffer. Mad important.
 		for (var led = 0; led < this.pixelcount; led++) {
 			buff[led*3    ] = gamma[Math.round(g)];
 			buff[led*3 + 1] = gamma[Math.round(r)];
 			buff[led*3 + 2] = gamma[Math.round(b)];
 		}
-		update();
+		update(r, g, b);
 	};
 
 	exports.setPixel = function(led, r, g, b){
-		setLastColor(r,g,b);
 		//console.log('Pixel #' + led +  ' to '+ r + ', ' + b + ', ' + g);
 		buff[led*3    ] = gamma[g];
 		buff[led*3 + 1] = gamma[r];
 		buff[led*3 + 2] = gamma[b];
-		update(); //Push buffer to Strip
+		update(r, g, b);
 	};
 
-	function update(){
+	function update(r, g, b){
+		if(r >= 0) red = r;
+		if(g >= 0) green = g;
+		if(b >= 0) blue = b;
 		strip.write(buff, emptybuff); //Write in Lovely Colors
 	}
 
-	//Wont save enpty colors.
-	function setLastColor(r, g, b){
-		//var tolerance = 2;
-		//if(r > tolerance || b > tolerance || g > tolerance){
-			if(r >= 0) red = r;
-			if(g >= 0) green = g;
-			if(b >= 0) blue = b;
-		//}
-	}//
+	function limitBrightness(r, g, b){
+		if(r > maximumbrightness || b > maximumbrightness || g > maximumbrightness){
+			//Scale Brightness
+			scale = 1;
+			brightest = 0;
+			colors = [r,g,b];
+			for(var key in colors) {
+				console.log('Each color ' + colors[key]);
+				if(colors[key] > brightest){
+					brightest = colors[key];
+				}
+			}
+			scale = (brightest - maximumbrightness)/brightest;
+			console.log(brightest + ' is top scaled by ' + scale);
+			return [r*scale, g*scale, b*scale];
+		} else {
+			return [r, g, b];
+		}
+	}
 
 	exports.getCurrentColor = function(){
 		return 'rgb('+red+','+green+','+blue+')';
@@ -68,6 +84,9 @@
 	};
 	exports.b = function(){
 		return blue;
+	};
+	exports.count = function(){
+		return this.pixelcount;
 	};
 
 

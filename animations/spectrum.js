@@ -99,6 +99,6 @@
 	function loopMathmos(){
 		if(animate){
 			mathmos();
-			setTimeout(loopMathmos, 30);
+			setTimeout(loopMathmos, 15);
 		}
 	}

@@ -83,3 +83,21 @@ div#alarms {
 	
 	border-radius: 15px;
 }
+
+/* Smartphones (portrait) ----------- */
+@media all and (max-width: 720px) {
+    /* styles for iPhone/Android portrait */
+
+	background-color: #4b31ff;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,7 @@
 			animate = !animate;
 			leds.fillColor(0,0,0); //Turn off color wheel
 			loopy();
+			console.log('Wheel of Color keeps on turning.');
 		}
 		if(id == 'off'){ animate = false; }
 	};
@@ -57,7 +58,7 @@
 	function loopy(){
 		if(animate){
 			colorWheel();
-			setTimeout(loopy, 25);
+			setTimeout(loopy, 15);
 		}
 	}
 

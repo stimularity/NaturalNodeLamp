@@ -100,9 +100,3 @@
 		}
 		return hours + ":" + minutes + " " + suffix;
 	}
-
-		// 833 - 41 Minutes 11:26 to 12:07
-	// 125 - 4  Minutes
-	// 625 - 21 Minutes 4:32 to 4:53
-	// 730 - 24 minutes 12:10 to 12:34
-	// 800 - 27 minutes 9:29 to 9:56

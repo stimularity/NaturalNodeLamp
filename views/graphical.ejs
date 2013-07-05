@@ -8,12 +8,6 @@
 
 <!-- For loop for button Divs -->
 <div id="home" class="controlpannel">
-	<div class="btn-group">
-		<button class="btn button" id="on">on</button>
-		<button class="btn button" id="off">off</button>
-	</div>
-	<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
-	<br />
 	Red
 	<div class="slider" id="red"></div>
 	Green
@@ -25,18 +19,18 @@
 <% for(var i=0; i<gui.length; i++) {%>
 	<div id="<%= gui[i]['category'] %>" class="controlpannel">
 		<% for(var k=0; k<gui[i]['gui'].length; k++) {%>
-			<button class="btn button" id="<%= gui[i]['gui'][k]['id'] %>"><%= gui[i]['gui'][k]['title'] %></button>
+
+			<!-- Generate Button -->
+			<%if (gui[i]['gui'][k]['type'] == 'button') {%>  
+				<button class="btn button" id="<%= gui[i]['gui'][k]['id'] %>"><%= gui[i]['gui'][k]['title'] %></button>
+			<%}%>
+
+			<!-- Generate Slider -->
+			<%if (gui[i]['gui'][k]['type'] == 'slider') {%>
+				<%= gui[i]['gui'][k]['title'] %>
+				<div class="slider" id="<%= gui[i]['gui'][k]['id'] %>"></div>
+			<%}%>
+
 		<% } %>
 	</div>
 <% } %>
-
-<!--  
-	New tab for each i.
-		Add gui as specified
-		add sliders as specified
-		add info as specified. 
-
-		if type == button
-			id= value= 
-
--->
