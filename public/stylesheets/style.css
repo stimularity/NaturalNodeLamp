@@ -56,12 +56,25 @@ div#alarms {
 	box-shadow:         inset 0px 0px 0px 0px #FFF;
 }
 
+.samplebox{
+	width: 100%;
+	height: 10px;
+	float: right;
+	border: thin solid #9b9da7;
+	border-radius: 5px;
+}
+
 /* ---------------------------------- Button Interface Styles  ---------------------------------- */
 .controlpannel {
 	/*border: thin solid #23b7ff;*/
 }
 .link {
 	cursor: pointer;
+}
+
+.colorvaluetitle {
+	width: 200px;
+	margin: 5px 0 5px 0;
 }
 
 /* ---------------------------------- Lightbox Styles  ---------------------------------- */

@@ -117,6 +117,14 @@ timer.on('alarm', function(id, value) {
 /*
  * Misc Functions
  */
+
+/**
+ * Sends an input from the User interface to the animations library.
+ * Takes the command and attempts to execute it on every animation in
+ * the library.
+ * Also sets a time off timer. So the LEDs don't stay on longer than
+ * two hourse at a time. Timer is reset when new animation is run.
+ */
 var clearid = '';
 function runAnimation(id, value){
   //console.log('Runnig animation ' + id + ', value: ' + value);
@@ -132,6 +140,7 @@ function runAnimation(id, value){
       runAnimation('off', 0); //Turn off lights command.
     }, 7200000); //2 Hours - 120 min * 60 sec * 1000 milliseconds
   }
+
 }//
 
 

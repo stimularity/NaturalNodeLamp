@@ -48,6 +48,7 @@
 		<div id="graphical"></div><!-- /graphical -->
 
 		<br />
+		<div class="samplebox"></div>
 
 		<div id="alarms"></div><!-- /alarms -->
 
@@ -68,14 +69,17 @@
 
 	//console.log('mh:' + mh + ' m: ' + m);
 
-	var socket = io.connect();
-	socket.emit('getAlarms');
+	// -- Socket.io --
+	var socket = io.connect(); //Load socket.io
+	socket.emit('getAlarms'); //Tell server we want some alarms -> server emits 'refreshAlarms'
 
+	//Set server time on DOM so we know the time is correct.
 	socket.on('servertime', function(data){
 		$('#servertime').empty().append(data['servertime']);
 	});
 
 	socket.on('refreshAlarms', function(a){
+
 		$.get('/alarms', function(data){ //Get /alarms from server
 			$('#alarms').empty().append(data); //Empty current alarms box
 
@@ -100,22 +104,50 @@
 			});
 
 			$('.icon-bell').click(function(){
-				var id = 2; //todo get row id, post to view 
+				var id = 2; //todo get row id, post to view
+				console.log('We will now set an alarm.');
 			});
-		});//-get end
-		
+		});
 
-		
+	});//-refreshAlarms end
 
+	/**
+	 * Updates Sliders every second. Pushed from
+	 * Event UpdateUserInterface. Sends the colors of the leds.
+	 * @param  {intiger} r Color of current LED
+	 * @param  {intiger} g Color of current LED
+	 * @param  {intiger} b Color of current LED
+	 */
+	socket.on('currentSliders', function(r, g, b){
+		//Update slider positions
+		$('#red').slider('value', r);
+		$('#green').slider('value', g);
+		$('#blue').slider('value', b);
+
+		//Set visual values
+		$('#redvalue').text(r);
+		$('#bluevalue').text(b);
+		$('#greenvalue').text(b);
+
+		//Update color preview div
+		$('.samplebox').css('background-color','rgb('+r+','+g+','+b+')');
 	});
+
+
+	// -- Socket.io --
 
 	$(document).ready(function() {
 		
+		/**
+		 * Get buttons and sliders from animations library.
+		 * Each animation has a set of graphical elements
+		 * This loads those buttons into neat divs. 
+		 */
 		$.get('/graphical', function(data){
 			$('#graphical').empty().append(data); //Empty Box and append button data
 			activateButtons(); //Bind actions to buttons
 			$('.controlpannel').hide();
-			$('#home').fadeIn(1000);
+			$('#home').fadeIn(1000); //Show main pannel
 
 			//Activate tab and display proper pannel.
 			$('#guitabs li').click(function(){
@@ -125,11 +157,15 @@
 				$('#'+area).fadeIn(500);
 				$(this).addClass('active');
 			});
-			
 		});
 
-	});//
+	});//End- Doc.ready
 
+	/**
+	 * When Buttons are loaded via graphical interface from the animations library
+	 * this function binds actions to those buttons or sliders.
+	 * @return {[type]} [description]
+	 */
 	function activateButtons(){
 		$( ".slider" ).unbind().slider({ max:255, min:0,
 		slide: function( event, ui ) {

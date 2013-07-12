@@ -22,6 +22,7 @@ function sunsetIn(){
 	var solartimes = sun.getTimes(new Date(), lat, lon); //Solar times
 	var ctime = new Date();
 	var hours = solartimes.sunrise.getHours() - ctime.getHours();
+	console.log();
 	var minutes = solartimes.sunrise.getMinutes() - ctime.getMinutes();
 	console.log('Sunset in ' + hours + ' hours and ' + minutes + ' minutes');
 }
