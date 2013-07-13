@@ -71,7 +71,7 @@ var Time = function(station) {
 	//Update the user interface every 2 seconds.
 	setInterval(function(){
 		self.emit('updateUserInterface', currentTime()); //Exports server values to UI 
-	}, 2000);
+	}, 500);
 
 	//Check For alarms once every minute
     setInterval(function(){

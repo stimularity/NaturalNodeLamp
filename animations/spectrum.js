@@ -17,7 +17,8 @@
 			title:'Color Spectrum',
 			type:'button', //Display class button
 			id:'spectrum', //Pass sunrise to interface. 
-			value:0 //No variation, only 30 min sunrise 
+			value:0, //No variation, only 30 min sunrise
+			alarm:true //This action may be executed as an alarm.
 		};
 		return buttons;
 	};

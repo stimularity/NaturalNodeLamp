@@ -36,9 +36,9 @@
 
 	<div class="container" name> <!-- /container -->
 		<div class="btn-group">
-		<button class="btn button" id="on">on</button>
-		<button class="btn button" id="off">off</button>
-	</div>
+			<button class="btn button" id="on">on</button>
+			<button class="btn button" id="off">off</button>
+		</div>
 
 	<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
 		<br />
@@ -103,12 +103,24 @@
 				$(this).parent('.row-fluid').fadeOut(250);
 			});
 
-			$('.icon-bell').click(function(){
-				var id = 2; //todo get row id, post to view
-				console.log('We will now set an alarm.');
+			$('.icon-bell, .alarmtype').unbind().click(function(){
+				$(this).unbind().click(function(){ socket.emit('getAlarms'); });
+				var id = $(this).parent().parent('.row-fluid').attr('id'); //Current Alarms ID
+				var row = $(this); //Current Alarm row
+				$.get('/alarmbuttons', function(data){ //Get all alarm buttons
+					row.parent().parent().after('<div class="row-fluid alarmbuttonrow'+id+'">'+data+'</div>'); //Add data from alarm buttons controller
+					//Bind actions to buttons that were added.
+					$('.alarmbutton').unbind().click(function(){
+						action = $(this).attr('id');
+						console.log('Execute ' + action + ' on alarm ' + id);
+						socket.emit('updateAlarm', id, 'alarmtype', action);
+						$('.alarmbuttonrow'+id).fadeOut(800, function(){ //Remove row then refresh alarms
+							socket.emit('getAlarms');
+						});
+					});
+				});
 			});
 		});
-
 	});//-refreshAlarms end
 
 	/**
@@ -127,7 +139,7 @@
 		//Set visual values
 		$('#redvalue').text(r);
 		$('#bluevalue').text(b);
-		$('#greenvalue').text(b);
+		$('#greenvalue').text(g);
 
 		//Update color preview div
 		$('.samplebox').css('background-color','rgb('+r+','+g+','+b+')');

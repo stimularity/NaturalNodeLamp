@@ -59,7 +59,7 @@
 		if(r >= 0 && r <= 255) red = r;
 		if(g >= 0 && g <= 255) green = g;
 		if(b >= 0 && b <= 255) blue = b;
-		//strip.write(buff, emptybuff); //Write in Lovely Colors
+		strip.write(buff, emptybuff); //Write in Lovely Colors
 	}
 
 	function limitBrightness(r, g, b){

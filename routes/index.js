@@ -28,6 +28,34 @@ exports.alarmentry = function(req, res){
 	res.render('alarmentry'); //Simply render template
 };
 
+/**
+ * Generates a set of alarm buttons.
+ * Each animation module exports gui elements.
+ * If the gui element has the alarm attribute, a single command that functions on the strip,
+ * then it is possible to set that action as an alarm. 
+ */
+exports.alarmbuttons = function(req, res){
+	var animations = res.app.settings['animations']; //Get animations library.
+	var buttons = []; //Array of buttons that gets sent to the browser.
+
+	for(var key in animations){
+		if(typeof(animations[key].getInterface) !== "undefined"){ //Make sure module exports GUI elements
+
+			for(var i=0; i<animations[key].getInterface().length; i++){
+
+				if(animations[key].getInterface()[i].alarm){ //If the button has the alarm attribute.
+					buttons.push(animations[key].getInterface()[i]); //Push button to gui
+				}
+			}
+		}
+	}
+
+	res.render('alarmbuttons', {
+		title: 'Fucking alarm buttons and shit',
+		buttons: buttons
+	});
+};
+
 //Renders a little pannel that allows for alarm selection
 exports.graphical = function(req, res){
 	var animations = res.app.settings['animations'];
@@ -38,12 +66,12 @@ exports.graphical = function(req, res){
 	guielements[0]['category'] = 'misc';
 	guielements[0]['gui'] = [];
 
-	for(var key in animations){
+	for(var key in animations){ //For each animation module.
 		if(typeof(animations[key].getInterface) !== "undefined"){ //Check for buttons
-			console.log(key + ' has ' + animations[key].getInterface().length + ' buttons.');
+			//console.log(key + ' has ' + animations[key].getInterface().length + ' buttons.');
 
-			if(animations[key].getInterface().length > 1){
-				index = guielements.length;
+			if(animations[key].getInterface().length > 1){ //If the module has an interface
+				index = guielements.length; 
 				guielements[index] = {}; //Make new dictionary for current Counter
 				guielements[index]['category'] = key; //Set KEY 
 				guielements[index]['gui'] = animations[key].getInterface(); //Set gui with [{},{},{}]

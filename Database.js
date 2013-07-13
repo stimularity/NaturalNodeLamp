@@ -14,7 +14,7 @@ db.serialize(function(){
 //Return all alarms, Requires Callback function
 exports.getAlarms = function(cb){
 	db.serialize(function() {
-		db.all("SELECT * FROM alarms", function(err, row) { //Get all alarms
+		db.all("SELECT * FROM alarms ORDER BY hour ASC", function(err, row) { //Get all alarms
 			if(!err){
 				cb(row); //Return alarms to callback
 			} else {

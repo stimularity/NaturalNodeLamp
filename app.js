@@ -44,6 +44,7 @@ app.get('/', routes.index); //We currently ONLY need index route.
 app.get('/alarms', routes.alarms); //Exports alarm data to drowser
 app.get('/alarmentry', routes.alarmentry); //Displays functioning alarm entry pad
 app.get('/graphical', routes.graphical); //Displays buttons to select ringer style
+app.get('/alarmbuttons', routes.alarmbuttons); //Displays buttons 
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -60,7 +61,6 @@ io.sockets.on('connection', function (socket) { //Socket.io bindings for events,
    */
   //Refresh alarms on connect
   socket.emit('refreshAlarms'); //Tells browser to fetch alarms
-
 
   //Updates the user interface with server values
   timer.on('updateUserInterface', function(time){
@@ -127,6 +127,8 @@ timer.on('alarm', function(id, value) {
  */
 var clearid = '';
 function runAnimation(id, value){
+  //Here would be a good spot to tell the interface to update RGB values for user to see TODO
+
   //console.log('Runnig animation ' + id + ', value: ' + value);
   for(var x in animations){
     animations[x].interface(id, value);

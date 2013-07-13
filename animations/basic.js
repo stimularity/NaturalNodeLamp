@@ -17,7 +17,8 @@
 			title:'Random',
 			type:'button',
 			id:'random',
-			value:0
+			value:0,
+			alarm:true //This action may be executed as an alarm.
 		});
 		buttons.push({
 			title:'Darken',
