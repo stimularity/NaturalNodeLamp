@@ -1,8 +1,3 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 a {
   color: #00B7FF;
 }
@@ -97,14 +92,58 @@ div#alarms {
 	border-radius: 15px;
 }
 
-/* Smartphones (portrait) ----------- */
-@media all and (max-width: 720px) {
-    /* styles for iPhone/Android portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 720px) {
+  /* iPhone, Android rules here */
+  body {
+  	background-color:#081224;
+  	color: #357dff;
+  }
 
-	background-color: #4b31ff;
+  .btn-group>.btn, .btn {
+  	font-size: 28px;
+  	padding: 10px;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+  	vertical-align: middle;
+  }
+
+  [class*="span"], .uneditable-input[class*="span"], .row-fluid [class*="span"] {
+  	min-width: 50px;
+  	max-width: 200px;
+  	float: left;
+  	display: block;
+  	margin: 10px;
+  	width: auto;
+  }
+
+  .alarmtime {
+  	font-size: 35px;
+  	color: #00B7FF;
+  	float: right;
+  	line-height: 40px;
+  	width: 400px;
+  	max-width: 100%;
+  }
+
+  .deletebutton {
+  	float: right;
+  	background-color: #ff32e4;
+  	height: 20px;
+  	width: 2px;
+  }
+
+  .alarmlabels {
+  	display: none;
+  }
+
+  .nav-tabs>li>a {
+  	font-size: 20px;
+  }
+
+
+
 }
-
-
 
 
 

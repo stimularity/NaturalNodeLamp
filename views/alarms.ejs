@@ -1,6 +1,6 @@
 
 <!-- Labels -->
-	<div class="row-fluid">
+	<div class="row-fluid alarmlabels">
 		<div class="span1">Enabled</div>
 		<div class="span1">Time</div>
 		<div class="span1">Sunday</div>
@@ -23,7 +23,7 @@
 			<%if (1==alarms[i]['enabled']) {%>  <button title="enabled" value="<%= alarms[i]['enabled'] %>" class="btn btn-mini btn-success">On</button>  <%}%>
 
 		</div>
-		<div class="span1"><%= alarms[i]['time'] %></div>
+		<div class="span1 alarmtime"><%= alarms[i]['time'] %></div>
 
 		<div class="span1">
 			<button title="sun" value="<%= alarms[i]['sun'] %>" class="btn btn-mini  <%if (1 == alarms[i]['sun']) {%>btn-info<%}%>">Sunday</button>
@@ -47,7 +47,7 @@
 			<button title="sat" value="<%= alarms[i]['sat'] %>" class="btn btn-mini  <%if (1 == alarms[i]['sat']) {%>btn-info<%}%>">Saturday</button>
 		</div>
 		<!-- <div class="span1"><%= alarms[i]['comment'] %></div> -->
-		<div class="span2 alarmaction"><i class="icon-bell"></i><button class="btn btn-mini alarmtype"><%= alarms[i]['alarmtype'] %></button></div>
+		<div class="span2 alarmaction"><button class="btn btn-mini alarmtype"><i class="icon-bell"></i> <%= alarms[i]['alarmtype'] %></button></div>
 		<div class="span1 deletebutton" title="delete"><i class="icon-remove" /></div>
 
 
