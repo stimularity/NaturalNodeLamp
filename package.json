@@ -1,12 +1,28 @@
 {
-  "name": "application-name",
+  "name": "NaturalNodeLamp",
+  "author": "Emu Mantoid",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stimularity/NaturalNodeLamp.git"
+  },
   "dependencies": {
     "express": "3.2.4",
-    "ejs": "*"
-  }
+    "ejs": "*",
+    "bindings": "1.1.x",
+    "forever": "0.10.x",
+    "node-sqlite3": "2.x.x",
+    "socket.io": "0.9.x",
+    "spi": "0.x.x",
+    "suncalc": "1.2.x",
+    "tinycolor2": "*"
+  },
+  "bundledDependencies": [
+    "node-sqlite3",
+    "spi"
+  ],  
 }
