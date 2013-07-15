@@ -109,28 +109,27 @@ div#alarms {
   }
 
   [class*="span"], .uneditable-input[class*="span"], .row-fluid [class*="span"] {
-  	min-width: 50px;
-  	max-width: 200px;
+
   	float: left;
   	display: block;
-  	margin: 10px;
+  	margin: 10px 10px 0 0;
   	width: auto;
   }
 
   .alarmtime {
-  	font-size: 35px;
+  	font-size: 40px;
   	color: #00B7FF;
-  	float: right;
   	line-height: 40px;
-  	width: 400px;
-  	max-width: 100%;
+  	padding: 0 100px 0 0;
   }
 
   .deletebutton {
   	float: right;
-  	background-color: #ff32e4;
   	height: 20px;
-  	width: 2px;
+  	width: 200px;
+  	min-width: 100px;
+  	border-radius: 5px;
+  	border: thin solid #4872ff;
   }
 
   .alarmlabels {
@@ -141,8 +140,29 @@ div#alarms {
   	font-size: 20px;
   }
 
+  .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+  	background-color:#081224;
+  	color: #00B7FF;
+  }
 
-
+.alarminput {
+	width: 420px;
+	text-align: center;
+}
+.padbutton, .lowerbutton {
+	width: 32%;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 47px;
+	font-size: 40px;
+	font-weight: bold;
+	border-radius: 5px;
+	border: thin solid #000000;
+}
+	#lightboxcore {
+		max-width: 420px;
+	}
 }
 
 

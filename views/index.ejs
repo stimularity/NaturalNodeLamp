@@ -57,6 +57,7 @@
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -131,10 +132,11 @@
 	 */
 	socket.on('currentSliders', function(r, g, b){
 		//Update slider positions
-		$('#red').slider('value', r);
-		$('#green').slider('value', g);
-		$('#blue').slider('value', b);
-
+		if(!sliding) {
+			$('#red').slider('value', r);
+			$('#green').slider('value', g);
+			$('#blue').slider('value', b);
+		}
 		//Set visual values
 		$('#redvalue').text(r);
 		$('#bluevalue').text(b);
@@ -177,13 +179,20 @@
 	 * this function binds actions to those buttons or sliders.
 	 * @return {[type]} [description]
 	 */
+	var sliding = false;
 	function activateButtons(){
 		$( ".slider" ).unbind().slider({ max:255, min:0,
-		slide: function( event, ui ) {
+		slide: function(event, ui) {
 			value = $(this).slider('value');
 			id = $(this).attr('id');
 			//console.log(id + ": " + value);
 			socket.emit('interact', { id:id, value:value });
+		},
+		start: function(event, ui){
+			sliding = true;
+		},
+		stop: function(event, ui){
+			sliding = false;
 		}
 		});
 
