@@ -2,9 +2,9 @@ var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var db = require('./Database'); //All Database access functions
 
-
-
-
+var sun = require('suncalc'); //To calculate sundown time
+var lat = 40; //Lattitude 
+var lon = -105; //Longitude 
 
 // @station - an object with `freq` and `name` properties
 var Time = function(station) {
@@ -30,6 +30,23 @@ var Time = function(station) {
 			hours = 12;
 		}
 		return hours + ":" + minutes + " " + suffix;
+	}
+
+	function sunsetIn(){
+		var solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
+		var ctime = new Date();
+		var hours =  solartimes.sunset.getHours() - ctime.getHours();
+		var minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
+
+		minutestring = ' minutes';
+		if(minutes == 1){ minutestring = ' minute'; }
+		hourstring = 'hours and '
+		if(hours == 1){ hourstring = 'hour and '; } 
+		if(hours == 0){ hourstring = ''; hours = ''; }
+
+
+		return '' + hours + hourstring + minutes + minutestring + '';
+		//console.log('Sunset in ' + hours + ' hours and ' + minutes + ' minutes');
 	}
 
 	this.on('addAlarm', function(alarm){
@@ -70,7 +87,7 @@ var Time = function(station) {
 
 	//Update the user interface every 2 seconds.
 	setInterval(function(){
-		self.emit('updateUserInterface', currentTime()); //Exports server values to UI 
+		self.emit('updateUserInterface', currentTime()+" Sunset in "+sunsetIn()); //Exports server values to UI 
 	}, 500);
 
 	//Check For alarms once every minute

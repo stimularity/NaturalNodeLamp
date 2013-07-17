@@ -19,12 +19,13 @@ p("Server Time:", currentTime());
 sunsetIn();
 
 function sunsetIn(){
-	var solartimes = sun.getTimes(new Date(), lat, lon); //Solar times
+	var solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
 	var ctime = new Date();
-	var hours = solartimes.sunrise.getHours() - ctime.getHours();
-	console.log();
-	var minutes = solartimes.sunrise.getMinutes() - ctime.getMinutes();
+	var hours =  solartimes.sunset.getHours() - ctime.getHours();
+	var minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
 	console.log('Sunset in ' + hours + ' hours and ' + minutes + ' minutes');
+	//console.log('Current Hour: ' + ctime.getHours() + " Sunset Hour: " + solartimes.sunset.getHours());
+	//console.log('Current minutes: ' + ctime.getMinutes() + " Sunset minutes: " + solartimes.sunset.getMinutes());
 }
 
 function p(t, r){
