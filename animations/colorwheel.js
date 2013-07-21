@@ -59,7 +59,7 @@
 	function loopy(){
 		if(animate){
 			colorWheel();
-			setTimeout(loopy, 15);
+			setTimeout(loopy, 50);
 		}
 	}
 

@@ -49,13 +49,13 @@
 			}
 			else if(Math.random() < 0.05) //Chance of random color.
 			{
-				current = {r:255, b:255, g:255};
+				current = {r:255, b:255, g:255}; //Pure White.
 			}
 			else if(Math.random() < 0.05) //Chance of random color.
 			{
-				current = {r:0, b:0, g:0};
+				current = {r:0, b:0, g:0}; //Pure black.
 			}
-			leds.setPixel(i, current['r'], current['b'], current['g']); //Set pixel
+			leds.setPixel(i, current['r'], current['g'], current['b']); //Set pixel
 		}
 
 		colors.shift(); //Remove first pixel from array.
@@ -65,7 +65,7 @@
 		}
 		else
 		{
-			if(counter%20 == 0){
+			if(counter%20 === 0){
 				counter = 0;
 				fill = tinycolor.random().toRgb();
 			}

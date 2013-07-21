@@ -18,18 +18,21 @@ var Time = function(station) {
 		var minutes = ctime.getMinutes();
 		var seconds = ctime.getSeconds();
 
-		if(minutes < 10){
+		if(seconds < 10){ //Add 0 if seconds is 1 char
+			seconds = '0' + seconds;
+		}
+		if(minutes < 10){ //add 0 if minutes is 1 char
 			minutes = "0" + minutes;
 		}
 		var suffix = "AM";
-		if(hours >= 12){
+		if(hours >= 12){ //Display AM or PM and convert military time.
 			suffix = "PM";
 			hours = hours - 12;
 		}
-		if(hours === 0){
+		if(hours === 0){ //Convert militarp time.
 			hours = 12;
 		}
-		return hours + ":" + minutes + " " + suffix;
+		return hours + ":" + minutes + "."+seconds+" " + suffix;
 	}
 
 	function sunsetIn(){
@@ -43,6 +46,9 @@ var Time = function(station) {
 		hourstring = 'hours and '
 		if(hours == 1){ hourstring = 'hour and '; } 
 		if(hours == 0){ hourstring = ''; hours = ''; }
+
+		//If hours contains "-" or time after 12 am
+		//Show sunrise.
 
 
 		return '' + hours + hourstring + minutes + minutestring + '';

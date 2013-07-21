@@ -1,15 +1,21 @@
 	var leds;
 	var animate = false;
-	var drops;
+	var runtime = 0;
 
 	//Only two accessable functions
 	exports.interface = function(id, value){
-		if(id == 'colorwheel'){
+		if(id == 'timer'){
 			animate = !animate;
-			leds.fillColor(0,0,0); //Clear LEDS
+			leds.fillColor(0,0,0); //Clear the strip of LEDS.
+
+			//Init timer
+			runtime = value;
+			for(i=0; i<leds.count(); i++){
+				drops[i] = {r:0, b:0, g:0}; //Set array of empty colors.
+			}
 			animateTimer();
-			console.log('Timer Set for ' +value+ ' minutes');
-			drops = [leds.count()];
+
+			console.log('Timer Set for ' +value+ ' minutes at ' + currentTime());
 		}
 		if(id == 'off'){ animate = false; }
 	};
@@ -33,28 +39,87 @@
 		leds = parentleds; //Init the leds.
 	};
 
-	counter = 0;
+	var tinycolor = require('tinycolor2');
 
+	counter = 0;
+	seconds = 0; //Number of seconds the timer has been running.
+	drops = [];
 	function timerStep(){
-		if(counter == 60){
-			//Drop light, reset counter
-		}
 		counter++;
+		drops.shift(); //Remove first value
+
+		//Add dot or enpty space. 
+		if(counter == 10){ //Every second, adda new drop to the strip.
+			counter = 0;
+			seconds++;
+
+			//Push a drop onto the strip.
+			drops.push({r:255, b:20, g:20}); //Push to end of array
+		} else {
+			drops.push({r:0, b:0, g:0}); //Push new empty pixel onto end.
+		}
+
+		//Calculate % complete
+		fillnum = leds.count() * (seconds/(runtime*60)); //Number of leds to fill with complete color.
 		for(i=0; i<drops.length; i++){
-			drops[i] = next;
-			if(drops[i] == 1){
-				drops[i] = 0; //Erease Current pixel
-				next = 1; //Turn on next light;
+			if(i < fillnum){ //Number of pixels to fill.
+				if(drops[i]['r'] == 255) //If current pixel is in complete, brighten it.
+				{
+					drops[i] = {r:140, b:80, g:0};
+				}
+				if(drops[i]['r'] === 0){ //If it is not set, make it purp
+					drops[i] = {r:80, b:80, g:0};
+				}
 			}
 		}
-	}//
 
+		for(i=0; i<leds.count(); i++){ //Animate Drops on the strip.
+			leds.setPixel(i, drops[i]['r'], drops[i]['g'], drops[i]['b']); //Set pixel
+		}
+
+		if(seconds/60 == runtime){ //When the time runs out.
+			//Pulse green or some shit.
+			animate = false; //Turn off animation.
+			leds.fillColor(0, 100, 20);
+			console.log('Timer complete at ' + currentTime());
+		}
+
+	}//
 
 	function animateTimer(){
 		if(animate){
 			timerStep();
-			setTimeout(animateTimer, 15); //~60 FPS
+			setTimeout(animateTimer, 50);
 		}
+	}
+
+	/*
+		1000 ms / second
+		1 run  /  50 ms
+		20 runs (50ms per run) = 1000ms
+	*/
+
+	function currentTime(){
+		var ctime = new Date();
+		var hours = ctime.getHours();
+		var minutes = ctime.getMinutes();
+		var seconds = ctime.getSeconds();
+
+		if(seconds < 10){ //Add 0 if seconds is 1 char
+			seconds = '0' + seconds;
+		}
+		if(minutes < 10){ //add 0 if minutes is 1 char
+			minutes = "0" + minutes;
+		}
+		var suffix = "AM";
+		if(hours >= 12){ //Display AM or PM and convert military time.
+			suffix = "PM";
+			hours = hours - 12;
+		}
+		if(hours === 0){ //Convert militarp time.
+			hours = 12;
+		}
+		return hours + ":" + minutes + "."+seconds+" " + suffix;
 	}
 
 
