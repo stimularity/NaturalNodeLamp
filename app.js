@@ -32,12 +32,12 @@ app.configure(function(){
   app.set('views', __dirname + '/views'); //Dirname for templates
   app.set('view engine', 'ejs'); //Use EJS templating engine
   app.set('animations', animations); //Pass animations to app for use in controlers
-  app.use(express.favicon()); //Use the express favicon
   app.use(express.logger('dev')); //Set environment
-  app.use(express.bodyParser()); //Does something with cookies
+  app.use(express.bodyParser()); //Does something with cookies or some shit
   app.use(express.methodOverride()); //Does something nasty with you mother
   app.use(app.router);  //For processing URLs
   app.use(express.static(path.join(__dirname, 'public'))); //Expose public directory
+  app.use(express.favicon('public/images/favicon.ico')); //Set favicon
 });
 
 app.get('/', routes.index); //We currently ONLY need index route.
@@ -59,6 +59,7 @@ io.sockets.on('connection', function (socket) { //Socket.io bindings for events,
   /*
    * GOING OUT >----------->
    */
+
   //Refresh alarms on connect
   socket.emit('refreshAlarms'); //Tells browser to fetch alarms
 
@@ -66,6 +67,7 @@ io.sockets.on('connection', function (socket) { //Socket.io bindings for events,
   timer.on('updateUserInterface', function(time){
     socket.emit('currentSliders', leds.r(), leds.g(), leds.b()); //todo doesnt work. Send current sliders to UI
     socket.emit('servertime', { servertime: time }); //Pushes server time to browser
+    //Possibly add some way for animation modules to communicate with UI
   });
 
   //Refresh Alarms for User
@@ -76,8 +78,6 @@ io.sockets.on('connection', function (socket) { //Socket.io bindings for events,
   /*
    * COMING IN <-----------<
    */
-
-
 
   //Update an existing alarm.
   socket.on('updateAlarm', function(id, field, value){
@@ -140,7 +140,7 @@ function runAnimation(id, value){
     clearid = setTimeout(function(){ //Start a timer
       console.log('Timeout Activated. Turning off lights.'); //After two hours, turn off LEDs
       runAnimation('off', 0); //Turn off lights command.
-    }, 7200000); //2 Hours - 120 min * 60 sec * 1000 milliseconds
+    }, 7200000); //2 Hours or 7200000ms = 120 min * 60 sec * 1000 milliseconds
   }
 
 }//

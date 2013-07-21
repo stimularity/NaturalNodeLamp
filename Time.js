@@ -36,23 +36,28 @@ var Time = function(station) {
 	}
 
 	function sunsetIn(){
-		var solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
-		var ctime = new Date();
-		var hours =  solartimes.sunset.getHours() - ctime.getHours();
-		var minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
+		solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
+		ctime = new Date();
+		//Calculate sunset
+		hours =  solartimes.sunset.getHours() - ctime.getHours();
+		minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
+		description = 'Sunset in ';
 
+		//Calculate Sunrise
+		if(ctime.getHours() > 0 && ctime.getHours() <  11){
+			hours =  solartimes.sunrise.getHours() - ctime.getHours();
+			minutes = solartimes.sunrise.getMinutes() - ctime.getMinutes();
+			description = 'Sunrise in ';
+		}
+
+		//String formatting.
 		minutestring = ' minutes';
 		if(minutes == 1){ minutestring = ' minute'; }
-		hourstring = 'hours and '
-		if(hours == 1){ hourstring = 'hour and '; } 
+		hourstring = ' hours and ';
+		if(hours == 1){ hourstring = ' hour and '; }
 		if(hours == 0){ hourstring = ''; hours = ''; }
 
-		//If hours contains "-" or time after 12 am
-		//Show sunrise.
-
-
-		return '' + hours + hourstring + minutes + minutestring + '';
-		//console.log('Sunset in ' + hours + ' hours and ' + minutes + ' minutes');
+		return description + hours + hourstring + minutes + minutestring + '';
 	}
 
 	this.on('addAlarm', function(alarm){
@@ -93,7 +98,7 @@ var Time = function(station) {
 
 	//Update the user interface every 2 seconds.
 	setInterval(function(){
-		self.emit('updateUserInterface', currentTime()+" Sunset in "+sunsetIn()); //Exports server values to UI 
+		self.emit('updateUserInterface', currentTime()+' '+sunsetIn()); //Exports server values to UI
 	}, 500);
 
 	//Check For alarms once every minute

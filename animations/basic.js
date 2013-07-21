@@ -1,4 +1,5 @@
 	var tinycolor = require('tinycolor2');
+	var sun = require('suncalc'); //To calculate sundown time
 
 	var leds;
 	exports.init = function(parentleds){
@@ -50,13 +51,22 @@
 		if(id == 'red'){leds.fillColor(value, leds.g(), leds.b()); }
 		if(id == 'green'){leds.fillColor(leds.r(), value, leds.b());}
 
-		if(id =='on'){ leds.fillColor(240, 240, 240); }
+		if(id =='on'){ on(); }
 		if(id =='off'){ leds.fillColor(0, 0, 0); }
 
 		if(id == 'darken'){ darken(); }
 		if(id == 'lighten'){ lighten(); }
 		if(id == 'saturate'){ saturate(); }
 	};
+
+	/**
+	 * On - Smart on button.
+	 * Button determines time of day
+	 * Then sets perfect brightness.
+	 */
+	function on(){
+		leds.fillColor(255,255,255);
+	}
 
 	function lighten(){
 		var color = tinycolor.lighten(leds.getCurrentColor()).toRgb();

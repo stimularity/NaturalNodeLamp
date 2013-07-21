@@ -8,13 +8,13 @@
 
 <!-- For loop for button Divs -->
 <div id="home" class="controlpannel">
-	<div class="colorvaluetitle">Red <span id="redvalue">0</span></div>
+	<div class="colorvaluetitle">Red <span id="red-value">0</span></div>
 	<div class="slider" id="red"></div>
 
-	<div class="colorvaluetitle">Green <span id="greenvalue">0</span></div>
+	<div class="colorvaluetitle">Green <span id="green-value">0</span></div>
 	<div class="slider" id="green"></div>
 
-	<div class="colorvaluetitle">Blue <span id="bluevalue">0</span></div>
+	<div class="colorvaluetitle">Blue <span id="blue-value">0</span></div>
 	<div class="slider" id="blue"></div>
 </div>
 
@@ -29,7 +29,8 @@
 
 			<!-- Generate Slider -->
 			<%if (gui[i]['gui'][k]['type'] == 'slider') {%>
-				<%= gui[i]['gui'][k]['title'] %>
+				
+			<div class="slidervalue"><%= gui[i]['gui'][k]['title'] %> <span id="<%= gui[i]['gui'][k]['id'] %>-value">0</span></div>
 				<div class="slider" id="<%= gui[i]['gui'][k]['id'] %>"></div>
 			<%}%>
 

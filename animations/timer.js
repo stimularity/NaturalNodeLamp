@@ -1,21 +1,23 @@
 	var leds;
 	var animate = false;
-	var runtime = 0;
+	var runtime = 1;
 
 	//Only two accessable functions
 	exports.interface = function(id, value){
 		if(id == 'timer'){
 			animate = !animate;
 			leds.fillColor(0,0,0); //Clear the strip of LEDS.
+			console.log('Timer Set for ' +runtime+ ' minutes at ' + currentTime());
 
 			//Init timer
-			runtime = value;
 			for(i=0; i<leds.count(); i++){
 				drops[i] = {r:0, b:0, g:0}; //Set array of empty colors.
 			}
 			animateTimer();
-
-			console.log('Timer Set for ' +value+ ' minutes at ' + currentTime());
+		}
+		if(id == 'timersetruntime'){ //Set timer value.
+			runtime = value;
+			console.log('Timer run time set to ' + value);
 		}
 		if(id == 'off'){ animate = false; }
 	};
@@ -30,7 +32,7 @@
 		}, {
 			title:'Set Time', //Set Timer
 			type:'slider',
-			id:'timerset',
+			id:'timersetruntime',
 			value:0
 		}];
 	};

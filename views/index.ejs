@@ -4,6 +4,7 @@
   <head>
 	<title><%= title %></title>
 	<meta name="viewport" content="initial-scale=1.0"> <!-- For mobile devices -->
+	<link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico' />
 
 	<link href="/stylesheets/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
@@ -139,9 +140,9 @@
 			$('#blue').slider('value', b);
 		}
 		//Set visual values
-		$('#redvalue').text(r);
-		$('#bluevalue').text(b);
-		$('#greenvalue').text(g);
+		$('#red-value').text(r);
+		$('#blue-value').text(b);
+		$('#green-value').text(g);
 
 		//Update color preview div
 		$('.samplebox').css('background-color','rgb('+r+','+g+','+b+')');
@@ -184,10 +185,10 @@
 	function activateButtons(){
 		$( ".slider" ).unbind().slider({ max:255, min:0,
 		slide: function(event, ui) {
-			value = $(this).slider('value');
-			id = $(this).attr('id');
-			//console.log(id + ": " + value);
-			socket.emit('interact', { id:id, value:value });
+			value = $(this).slider('value'); //Get value
+			id = $(this).attr('id'); //Get identifier
+			$('#'+id+'-value').text(value); //Update slider visual box
+			socket.emit('interact', { id:id, value:value }); //Send to animations[]
 		},
 		start: function(event, ui){
 			sliding = true;
@@ -200,7 +201,7 @@
 		$(".button").unbind().click(function(){
 			id = $(this).attr('id');
 			//console.log("Pressed: " + id);
-			socket.emit('interact', { id:id, value:1 });
+			socket.emit('interact', { id:id, value:1 }); //TODO have button send correct value.
 		});
 
 		$('#newalarm').unbind().click(function(){
