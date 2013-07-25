@@ -1,6 +1,6 @@
 	var leds;
 	var animate = false;
-	var runtime = 1;
+	var runtime = 1; //Number of minutes for the timer to run.
 
 	//Only two accessable functions
 	exports.interface = function(id, value){
@@ -13,6 +13,9 @@
 			for(i=0; i<leds.count(); i++){
 				drops[i] = {r:0, b:0, g:0}; //Set array of empty colors.
 			}
+			if(runtime == 0){ runtime = 1; } //Prevent a 0 value thing.
+			counter = 0;
+			seconds = 0;
 			animateTimer();
 		}
 		if(id == 'timersetruntime'){ //Set timer value.

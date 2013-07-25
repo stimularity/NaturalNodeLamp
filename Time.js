@@ -12,11 +12,10 @@ var Time = function(station) {
     // using `this` in the setTimeout functions will refer to those funtions, not the Radio class
     var self = this;
 
-	function currentTime(){
-		var ctime = new Date();
-		var hours = ctime.getHours();
-		var minutes = ctime.getMinutes();
-		var seconds = ctime.getSeconds();
+	function currentTime(current_time){
+		var hours = current_time.getHours();
+		var minutes = current_time.getMinutes();
+		var seconds = current_time.getSeconds();
 
 		if(seconds < 10){ //Add 0 if seconds is 1 char
 			seconds = '0' + seconds;
@@ -35,18 +34,24 @@ var Time = function(station) {
 		return hours + ":" + minutes + "."+seconds+" " + suffix;
 	}
 
-	function sunsetIn(){
-		solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
-		ctime = new Date();
+	/**
+	 * Prints the sunrise or sunset times and formats them in
+	 * an easily readable string
+	 * @param  {Date} in_date javascript Date() object
+	 * @return {string}         Readable solar event string.
+	 */
+	function solarEvents(in_date){
+		solartimes = new sun.getTimes(in_date, lat, lon); //Solar times
+		ctime = in_date;
 		//Calculate sunset
-		hours =  solartimes.sunset.getHours() - ctime.getHours();
-		minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
+		hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
+		minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
 		description = 'Sunset in ';
 
 		//Calculate Sunrise
 		if(ctime.getHours() > 0 && ctime.getHours() <  11){
-			hours =  solartimes.sunrise.getHours() - ctime.getHours();
-			minutes = solartimes.sunrise.getMinutes() - ctime.getMinutes();
+			hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
+			minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
 			description = 'Sunrise in ';
 		}
 
@@ -60,6 +65,12 @@ var Time = function(station) {
 		return description + hours + hourstring + minutes + minutestring + '';
 	}
 
+	/**
+	 * Adds an alarm to the database via an event.
+	 * Then emits an update alarm event on success
+	 * @param  {[type]} alarm [description]
+	 * @return {[type]}       v
+	 */
 	this.on('addAlarm', function(alarm){
 		//index of : - Take everything before that
 		var hour = parseInt(alarm.substring(0, alarm.indexOf(':')),10);
@@ -72,8 +83,8 @@ var Time = function(station) {
 		var date = new Date();
 		//Save alarm
 		db.addAlarm(hour, minute, date.getDay(), function(data){
-		//On success
-		self.emit('refreshAlarms'); //Get all the alarms, this will trigger refresh and send to user.
+			self.emit('refreshAlarms'); //Get all the alarms, this will trigger refresh and send to user.
+			return true;
 		});
 	});
 
@@ -91,14 +102,14 @@ var Time = function(station) {
 	this.on('updateAlarm', function(id, field, value){
 		db.updateAlarm(id, field, value, function(success){
 			if(success){
-				self.emit('refreshAlarms');
+				self.emit('refreshAlarms'); //Tells UI to refresh alarms element.
 			}
 		});
 	});
 
-	//Update the user interface every 2 seconds.
+	//Update the user interface every half second.
 	setInterval(function(){
-		self.emit('updateUserInterface', currentTime()+' '+sunsetIn()); //Exports server values to UI
+		self.emit('updateUserInterface', currentTime(new Date())+' '+solarEvents(new Date())); //Exports server values to UI
 	}, 500);
 
 	//Check For alarms once every minute

@@ -13,33 +13,24 @@
 
 
   <body>
-<meta name="container" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=320, height=device-height, target-densitydpi=medium-dpi" />
-
-	<div class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="navbar-inner">
-		<div class="container">
-		  <button type="button" class="btn btn-navbar">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		  </button>
-		  <a class="brand" href="#"><%= title %></a>
-
-			<ul class="nav">
-			  <li class="active"><a href="#"><i class="icon-time icon-white"></i> <span id="servertime"></span></a></li>
-			  <!-- <li><a href="#about">About</a></li> -->
-			</ul>
-
-		</div>
-	  </div>
-	</div>
 
 	<div class="container" name="container">
+
+		<!-- Navigation Menu AKA time display -->
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<a class="brand" href="#"><%= title %></a>
+				<ul class="nav">
+					<li class="active"><a href="#"><i class="icon-time"></i> <span id="servertime"></span></a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- Essential Functions Buttons -->
 		<div class="btn-group">
 			<button class="btn button" id="on">on</button>
 			<button class="btn button" id="off">off</button>
 		</div>
-
 		<button class="btn" id="newalarm"><i class="icon-plus"></i> New Alarm</button>
 
 		<br />
@@ -49,8 +40,11 @@
 		<div id="graphical"></div><!-- /graphical -->
 
 		<br />
+
+		<!-- Bar that changes color based on current RGB settings -->
 		<div class="samplebox"></div>
 
+		<!-- Active Alarms Area -->
 		<div id="alarms"></div><!-- /alarms -->
 
 	</div> <!-- /container -->
@@ -184,18 +178,18 @@
 	var sliding = false;
 	function activateButtons(){
 		$( ".slider" ).unbind().slider({ max:255, min:0,
-		slide: function(event, ui) {
-			value = $(this).slider('value'); //Get value
-			id = $(this).attr('id'); //Get identifier
-			$('#'+id+'-value').text(value); //Update slider visual box
-			socket.emit('interact', { id:id, value:value }); //Send to animations[]
-		},
-		start: function(event, ui){
-			sliding = true;
-		},
-		stop: function(event, ui){
-			sliding = false;
-		}
+			slide: function(event, ui) {
+				value = $(this).slider('value'); //Get value
+				id = $(this).attr('id'); //Get identifier
+				$('#'+id+'-value').text(value); //Update slider visual box
+				socket.emit('interact', { id:id, value:value }); //Send to animations[]
+			},
+			start: function(event, ui){
+				sliding = true;
+			},
+			stop: function(event, ui){
+				sliding = false;
+			}
 		});
 
 		$(".button").unbind().click(function(){
