@@ -48,8 +48,20 @@ var Time = function(station) {
 		minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
 		description = 'Sunset in ';
 
-		//Calculate Sunrise
-		if(ctime.getHours() > 0 && ctime.getHours() <  11){
+		//After 12AM calculate sunrise.
+		if(ctime.getHours() > 0){
+			hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
+			minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
+			description = 'Sunrise in ';
+		}
+		//After sunrise? Calculate sunset.
+		if(ctime.getHours() > solartimes.sunrise.getHours()){//Current time is after sunrise
+			hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
+			minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
+			description = 'Sunset in ';
+		}
+		//After sunset, calculate sunrise.
+		if(solartimes.sunrise.getHours() < solartimes.sunset.getHours()){
 			hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
 			minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
 			description = 'Sunrise in ';
