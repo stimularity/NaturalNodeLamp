@@ -24,7 +24,7 @@
 
 			<!-- Generate Button -->
 			<%if (gui[i]['gui'][k]['type'] == 'button') {%>  
-				<button class="btn button" id="<%= gui[i]['gui'][k]['id'] %>"><%= gui[i]['gui'][k]['title'] %></button>
+				<button class="btn <%= gui[i]['gui'][k]['style'] %> button" id="<%= gui[i]['gui'][k]['id'] %>"><%= gui[i]['gui'][k]['title'] %></button>
 			<%}%>
 
 			<!-- Generate Slider -->

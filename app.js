@@ -129,7 +129,7 @@ var clearid = '';
 function runAnimation(id, value){
   //Here would be a good spot to tell the interface to update RGB values for user to see TODO
 
-  //console.log('Runnig animation ' + id + ', value: ' + value);
+  console.log('Runnig animation ' + id + ', value: ' + value);
   for(var x in animations){
     animations[x].interface(id, value);
   }

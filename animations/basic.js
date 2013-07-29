@@ -1,5 +1,8 @@
 	var tinycolor = require('tinycolor2');
 	var sun = require('suncalc'); //To calculate sundown time
+	var lat = 40; //Lattitude 
+	var lon = -105; //Longitude 
+	//@todo move lat an lon to a sigle location
 
 	var leds;
 	exports.init = function(parentleds){
@@ -40,6 +43,32 @@
 			value:0
 		});
 
+		//Solid Color buttons with special styles
+		buttons.push({
+			title:'Red',
+			type:'button',
+			id:'solidred',
+			style:'btn-danger',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Green',
+			type:'button',
+			id:'solidgreen',
+			style:'btn-success',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Blue',
+			type:'button',
+			id:'solidblue',
+			style:'btn-primary',
+			alarm:true,
+			value:0
+		});
+
 		return buttons;
 	};
 
@@ -51,12 +80,16 @@
 		if(id == 'red'){leds.fillColor(value, leds.g(), leds.b()); }
 		if(id == 'green'){leds.fillColor(leds.r(), value, leds.b());}
 
-		if(id =='on'){ on(); }
+		if(id =='on'){ on(new Date()); }
 		if(id =='off'){ leds.fillColor(0, 0, 0); }
 
 		if(id == 'darken'){ darken(); }
 		if(id == 'lighten'){ lighten(); }
 		if(id == 'saturate'){ saturate(); }
+
+		if(id == 'solidred'){ leds.fillColor(255, 0, 0); }
+		if(id == 'solidgreen'){ leds.fillColor(0, 255, 0); }
+		if(id == 'solidblue'){ leds.fillColor(0, 0, 255); }
 	};
 
 	/**
@@ -64,8 +97,48 @@
 	 * Button determines time of day
 	 * Then sets perfect brightness.
 	 */
-	function on(){
-		leds.fillColor(255,255,255);
+	function on(in_date){
+
+		//Init times
+		ctime = in_date;
+		solartimes = new sun.getTimes(ctime, lat, lon); //Solar times
+
+		//Things we need for calculations
+		h = ctime.getHours();
+		sunrise = solartimes.sunrise.getHours();
+		sunset = solartimes.sunset.getHours();
+		set_color = 'none'; //For testing.
+
+		//0 and sunrise - RED
+		if(h >= 0 && h <= sunrise){
+			leds.fillColor(200,0,0);
+			set_color = 'red';
+		}
+
+		//sunrise and noon - white
+		if(h >= sunrise && h <= 12){
+			leds.fillColor(255,255,255);
+			set_color = 'white';
+		}
+
+		//noon and 4 - aqua
+		if(h >= 12 && h <= 16){
+			leds.fillColor(120,255,255);
+			set_color = 'aqua';
+		}
+
+		//4 and sunset - orange
+		if(h >= 16 && h <= sunset){
+			leds.fillColor(255,150,0);
+			set_color = 'orange';
+		}
+
+		//sunset and 0 - red
+		if(h >= sunset && h <= 24){
+			leds.fillColor(240,0,0);
+			set_color = 'red';
+		}
+		return set_color;
 	}
 
 	function lighten(){

@@ -67,7 +67,7 @@
 
 	// -- Socket.io --
 	var socket = io.connect(); //Load socket.io
-	socket.emit('getAlarms'); //Tell server we want some alarms -> server emits 'refreshAlarms'
+	//socket.emit('getAlarms'); //Tell server we want some alarms -> server emits 'refreshAlarms'
 
 	//Set server time on DOM so we know the time is correct.
 	socket.on('servertime', function(data){

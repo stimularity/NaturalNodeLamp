@@ -43,28 +43,19 @@ var Time = function(station) {
 	function solarEvents(in_date){
 		solartimes = new sun.getTimes(in_date, lat, lon); //Solar times
 		ctime = in_date;
-		//Calculate sunset
-		hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
-		minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
-		description = 'Sunset in ';
+		//Calculate sunrise - Default
+		hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
+		minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
+		description = 'Sunrise in ';
 
-		//After 12AM calculate sunrise.
-		if(ctime.getHours() > 0){
-			hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
-			minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
-			description = 'Sunrise in ';
-		}
-		//After sunrise? Calculate sunset.
-		if(ctime.getHours() > solartimes.sunrise.getHours()){//Current time is after sunrise
-			hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
-			minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
-			description = 'Sunset in ';
-		}
-		//After sunset, calculate sunrise.
-		if(solartimes.sunrise.getHours() < solartimes.sunset.getHours()){
-			hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
-			minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
-			description = 'Sunrise in ';
+		//console.log(ctime.getHours() +' '+ solartimes.sunset.getHours());
+
+		if(ctime.getHours() > solartimes.sunrise.getHours() && ctime.getHours() <= solartimes.sunset.getHours()){
+			if(solartimes.sunset.getMinutes() >= ctime.getMinutes()){
+				hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
+				minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
+				description = 'Sunset in ';
+			}
 		}
 
 		//String formatting.
@@ -96,7 +87,6 @@ var Time = function(station) {
 		//Save alarm
 		db.addAlarm(hour, minute, date.getDay(), function(data){
 			self.emit('refreshAlarms'); //Get all the alarms, this will trigger refresh and send to user.
-			return true;
 		});
 	});
 
@@ -106,6 +96,7 @@ var Time = function(station) {
 			if(itworked){
 				//self.emit('refreshAlarms'); //Get alarms triggers refreshAlarms event.
 				//todo Replace this with a Send-message-to-user event.
+				//No return information is needed.
 			}
 		});
 	});
@@ -124,7 +115,15 @@ var Time = function(station) {
 		self.emit('updateUserInterface', currentTime(new Date())+' '+solarEvents(new Date())); //Exports server values to UI
 	}, 500);
 
-	//Check For alarms once every minute
+	/**
+	 * Checks for alarm. This function drives the entire alarm clock.
+	 * Each minute a very specific query is made on the database.
+	 * If the query returns anything the specific action is triggered.
+	 * Without this function there is no alarm.
+	 * 
+	 * Activate - Every 60 seconds
+	 * Emit - alarm('alarm', alarmtype, 0)
+	 */
     setInterval(function(){
 		//self.emit('tick', currentTime()); //Send current time to user
 		//console.log('Server Time ' + currentTime());
@@ -142,15 +141,8 @@ var Time = function(station) {
 		});
     },60000);//1000);
 
-
-    /*
-    // Display subscribed functions.
-    this.on('newListener', function(listener) {
-        console.log('New Listener: ' + listener);
-    }); */
 };
 
-// extend the EventEmitter class using our Radio class
+//Export an event emiter 
 util.inherits(Time, EventEmitter);
-// we specify that this module is a refrence to the Radio class
 module.exports = Time;

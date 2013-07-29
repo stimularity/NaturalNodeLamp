@@ -4,6 +4,6 @@
 	<button class="btn btn-mini alarmbutton" id="on">on</button>
 	<button class="btn btn-mini alarmbutton" id="off">off</button>
 	<% for(var i=0; i<buttons.length; i++) {%>
-		<button class="btn btn-mini alarmbutton" id="<%= buttons[i]['id'] %>"><%= buttons[i]['title'] %></button>
+		<button class="btn btn-mini <%= buttons[i]['style'] %> alarmbutton" id="<%= buttons[i]['id'] %>"><%= buttons[i]['title'] %></button>
 	<% } %>
 </div>
