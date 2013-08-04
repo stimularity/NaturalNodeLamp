@@ -16,9 +16,25 @@ p("Sunset String:", fTime(times.sunset.getHours(), times.sunset.getMinutes()));
 
 p("Server Time:", currentTime());
 
-//sunsetIn();
 
-console.log(solarEvents(new Date("July 27, 2013 21:00:00")));
+console.log('2 AM');
+console.log(solarEvents(new Date("July 27, 2013 02:00:00")));
+console.log('6 AM');
+console.log(solarEvents(new Date("July 27, 2013 06:00:00")));
+console.log('8 AM');
+console.log(solarEvents(new Date("July 27, 2013 08:00:00")));
+console.log('11 AM');
+console.log(solarEvents(new Date("July 27, 2013 11:00:00")));
+console.log('12 PM');
+console.log(solarEvents(new Date("July 27, 2013 12:00:00")));
+console.log('5 PM');
+console.log(solarEvents(new Date("July 27, 2013 17:00:00")));
+console.log('8 PM');
+console.log(solarEvents(new Date("July 27, 2013 20:00:00")));
+console.log('10 PM');
+console.log(solarEvents(new Date("July 27, 2013 22:00:00")));
+console.log('12 AM');
+console.log(solarEvents(new Date("July 27, 2013 23:59:00")));
 
 function sunsetIn(){
 	var solartimes = new sun.getTimes(new Date(), lat, lon); //Solar times
@@ -31,8 +47,8 @@ function sunsetIn(){
 }
 
 function p(t, r){
-	//console.log(t);
-	//console.log(r);
+	console.log(t);
+	console.log(r);
 }
 
 function fTime(h, m){
@@ -74,41 +90,29 @@ function currentTime(){
 }
 
 function solarEvents(in_date){
-		solartimes = new sun.getTimes(in_date, lat, lon); //Solar times
-		ctime = in_date;
-		//Calculate sunset
-		//hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
-		//minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
-		hours =  solartimes.sunset.getHours() - ctime.getHours();
-		minutes = solartimes.sunset.getMinutes() - ctime.getMinutes();
-		description = 'Sunset in ';
-		sunrise = false;
+	solartimes = new sun.getTimes(in_date, lat, lon); //Solar times
+	ctime = in_date;
+	//Calculate sunrise - Default
+	hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
+	minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
+	description = 'Sunrise in ';
 
-		//Current time is AFTER sunset OR AFTER 12 and BEfORE sunrise
-		if(ctime.getHours() > solartimes.sunset.getHours()){
-			console.log('Current time is LATER than sunset.');
-			sunrise = true;
-		}
-		if((ctime.getHours() >= 24 && ctime.getHours() > solartimes.sunset.getHours())){
-			console.log('Current Time is AFTER midnight and before sunrise');
-		}
-
-		if(sunrise)
-		{
-			console.log('Sunrise yo!');
-			//hours =  Math.abs(solartimes.sunrise.getHours() - ctime.getHours());
-			//minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
-			hours =  solartimes.sunrise.getHours() - ctime.getHours();
-			minutes = solartimes.sunrise.getMinutes() - ctime.getMinutes();
-			description = 'Sunrise in ';
-		}
-
-		//String formatting.
-		minutestring = ' minutes';
-		if(minutes == 1){ minutestring = ' minute'; }
-		hourstring = ' hours and ';
-		if(hours == 1){ hourstring = ' hour and '; }
-		if(hours == 0){ hourstring = ''; hours = ''; }
-
-		return description + hours + hourstring + minutes + minutestring + '';
+	//Current time is after sunrise AND current time is before midnight
+	if(ctime.getHours() > solartimes.sunrise.getHours() && ctime.getHours() <= 24){
+		hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
+		minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
+		description = 'Sunset in '; //Display when sunset will happen
 	}
+
+	//String formatting.
+	minutestring = ' minutes';
+	if(minutes == 1){ minutestring = ' minute'; }
+	hourstring = ' hours and ';
+	if(hours == 1){ hourstring = ' hour and '; }
+	if(hours === 0){ hourstring = ''; hours = ''; }
+	if(ctime.getHours() > solartimes.sunset.getHours()){
+		minutestring += ' ago'; description = 'Sunset was '; //Change string if past sunset
+	}
+
+	return description + hours + hourstring + minutes + minutestring + '';
+}

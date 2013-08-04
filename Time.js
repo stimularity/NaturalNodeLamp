@@ -5,6 +5,7 @@ var db = require('./Database'); //All Database access functions
 var sun = require('suncalc'); //To calculate sundown time
 var lat = 40; //Lattitude 
 var lon = -105; //Longitude 
+//@todo move lat an lon to a sigle location
 
 // @station - an object with `freq` and `name` properties
 var Time = function(station) {
@@ -48,14 +49,11 @@ var Time = function(station) {
 		minutes = Math.abs(solartimes.sunrise.getMinutes() - ctime.getMinutes());
 		description = 'Sunrise in ';
 
-		//console.log(ctime.getHours() +' '+ solartimes.sunset.getHours());
-
-		if(ctime.getHours() > solartimes.sunrise.getHours() && ctime.getHours() <= solartimes.sunset.getHours()){
-			if(solartimes.sunset.getMinutes() >= ctime.getMinutes()){
-				hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
-				minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
-				description = 'Sunset in ';
-			}
+		//Current time is after sunrise AND current time is before midnight
+		if(ctime.getHours() > solartimes.sunrise.getHours() && ctime.getHours() <= 24){
+			hours =  Math.abs(solartimes.sunset.getHours() - ctime.getHours());
+			minutes = Math.abs(solartimes.sunset.getMinutes() - ctime.getMinutes());
+			description = 'Sunset in '; //Display when sunset will happen
 		}
 
 		//String formatting.
@@ -63,7 +61,10 @@ var Time = function(station) {
 		if(minutes == 1){ minutestring = ' minute'; }
 		hourstring = ' hours and ';
 		if(hours == 1){ hourstring = ' hour and '; }
-		if(hours == 0){ hourstring = ''; hours = ''; }
+		if(hours === 0){ hourstring = ''; hours = ''; }
+		if(ctime.getHours() > solartimes.sunset.getHours()){
+			minutestring += ' ago'; description = 'Sunset was '; //Change string if past sunset
+		}
 
 		return description + hours + hourstring + minutes + minutestring + '';
 	}
