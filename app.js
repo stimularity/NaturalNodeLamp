@@ -48,6 +48,7 @@ app.get('/alarmbuttons', routes.alarmbuttons); //Displays buttons
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
+  runAnimation('beam', 1); //To show its active.
 });
 
 

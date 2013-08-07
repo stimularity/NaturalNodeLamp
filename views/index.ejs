@@ -194,8 +194,9 @@
 
 		$(".button").unbind().click(function(){
 			id = $(this).attr('id');
-			//console.log("Pressed: " + id);
-			socket.emit('interact', { id:id, value:1 }); //TODO have button send correct value.
+			value = $(this).attr('alt');
+			console.log("Pressed: " + id + " with value " + value);
+			socket.emit('interact', { id:id, value:value }); //TODO have button send correct value.
 		});
 
 		$('#newalarm').unbind().click(function(){

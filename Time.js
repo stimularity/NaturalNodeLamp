@@ -140,7 +140,7 @@ var Time = function(station) {
 		db.checkForAlarm(hour, minute, day, function(alarmtype){
 			self.emit('alarm', alarmtype, 0); //interface(id, value);
 		});
-    },60000);//1000);
+    },60000);
 
 };
 

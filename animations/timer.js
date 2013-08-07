@@ -44,8 +44,6 @@
 		leds = parentleds; //Init the leds.
 	};
 
-	var tinycolor = require('tinycolor2');
-
 	counter = 0;
 	seconds = 0; //Number of seconds the timer has been running.
 	drops = [];

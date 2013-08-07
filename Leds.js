@@ -105,6 +105,15 @@
 		return this.pixelcount;
 	};
 
+	exports.empty = function(){
+		buff.fill(0x0); //Zero out buffer. Mad important.
+		for (var led = 0; led < this.pixelcount; led++) {
+			buff[led*3    ] = gamma[0];
+			buff[led*3 + 1] = gamma[0];
+			buff[led*3 + 2] = gamma[0];
+		}
+	};
+
 
 
 
