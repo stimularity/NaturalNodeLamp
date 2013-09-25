@@ -4,7 +4,7 @@
 	//Only two accessable functions
 	exports.interface = function(id, value){
 		if(id == 'beam'){
-			if(value === 0){ value = 1; }
+			if(value === 0){ value = 2; }
 			cycles = value;
 			total_cycles = 0;
 			location = 0;
@@ -51,9 +51,10 @@
 	color = 0;
 	tail_length = 4;
 	function timerStep(){
-		leds.empty();
-		leds.setPixel(location, color['r'], color['b'], color['g']); //Light correct light.
+		leds.empty(); //Empty out the buffer.
+		leds.setPixel(location, color['r'], color['b'], color['g']); //Set current Brightest LED
 
+		//Generate Tail 
 		if(up){
 			for(j=1; j<tail_length+1; j++){
 				if(location-j >= 0)
@@ -67,8 +68,8 @@
 				}
 			}
 		}
-			
-		
+
+		//Incriment Counters
 		if(up){
 			location++;
 		}
@@ -76,16 +77,19 @@
 			location--;
 		}
 
+		//Reverse Counters if they reach the limits.
 		if(location >= leds.count()){
 			up = false;
 			down = true;
-			total_cycles++;
 		}
 		if(location <= 0){
 			up = true;
 			down = false;
+			total_cycles++;
+			color = tinycolor.random().toRgb(); //Set initial Color
 		}
 
+		//End after So many cycles
 		if(cycles == total_cycles){
 			animate = false;
 			leds.fillColor(0,0,0); //Turn off

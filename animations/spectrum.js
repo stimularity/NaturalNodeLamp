@@ -56,7 +56,7 @@
 	}//
 
 	//Array of preset colors to fade through. 
-	var steps = 250;
+	var steps = 500;
 	var phase = [ //Steps - 2000
 		{r:255, g:0, b:0, numsteps: steps/2}, //Red
 		{r:255, g:0, b:255, numsteps: steps}, //Purple
