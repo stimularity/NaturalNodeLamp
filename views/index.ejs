@@ -42,7 +42,7 @@
 		<br />
 
 		<!-- Bar that changes color based on current RGB settings -->
-		<div class="samplebox"></div>
+		<input id="color-picker" class="color {onImmediateChange:'updateColorPickerSelection(this);'}" value="66ff00">
 
 		<!-- Active Alarms Area -->
 		<div id="alarms"></div><!-- /alarms -->
@@ -54,6 +54,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jscolor/jscolor.js"></script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -138,8 +139,8 @@
 		$('#blue-value').text(b);
 		$('#green-value').text(g);
 
-		//Update color preview div
-		$('.samplebox').css('background-color','rgb('+r+','+g+','+b+')');
+		//Update jsColor color picker
+		document.getElementById('color-picker').color.fromRGB(r/255, g/255, b/255);
 	});
 
 
@@ -204,6 +205,9 @@
 				lightBox(500, 0, data);
 			});
 		});
+
+		//Re init color box
+		jscolor.init();
 	}
 
 	//Max's custom animated lightbox plugin. Quite magical.
@@ -245,6 +249,13 @@
 	function closeLightbox(){
 		$('#lightbox').fadeOut(500);
 		$('#lightboxcore').fadeOut(300);
+	}
+
+	//Update RGB of leds when JScolor picker is changed
+	function updateColorPickerSelection(color){
+		socket.emit('interact', { id:'blue', value:Math.round(color.rgb[2]*255) }); //Send to basic library
+		socket.emit('interact', { id:'green', value:Math.round(color.rgb[1]*255) }); //Send to basic library
+		socket.emit('interact', { id:'red', value:Math.round(color.rgb[0]*255) }); //Send to basic library
 	}
 
 

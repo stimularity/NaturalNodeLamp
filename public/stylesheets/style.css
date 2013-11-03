@@ -36,8 +36,6 @@ div#alarms {
 }
 .padbutton:hover, .lowerbutton:hover {
 	/*background-color: #DBDBDB;*/
-	-moz-box-shadow:    inset 0px 1px 2px 2px #ccc;
-	-webkit-box-shadow: inset 0px 1px 2px 2px #ccc;
 	box-shadow:         inset 0px 1px 2px 2px #ccc;
 }
 .daypad {
@@ -46,17 +44,7 @@ div#alarms {
 .disable, .disable:hover {
 	color: #F0F0F0;
 	cursor: default;
-	-moz-box-shadow:    inset 0px 0px 0px 0px #FFF;
-	-webkit-box-shadow: inset 0px 0px 0px 0px #FFF;
-	box-shadow:         inset 0px 0px 0px 0px #FFF;
-}
-
-.samplebox{
-	width: 100%;
-	height: 10px;
-	float: right;
-	border: thin solid #9b9da7;
-	border-radius: 5px;
+	box-shadow:         inset 0 0 0 0 #FFF;
 }
 
 /* ---------------------------------- Button Interface Styles  ---------------------------------- */
@@ -70,6 +58,14 @@ div#alarms {
 .colorvaluetitle {
 	width: 200px;
 	margin: 5px 0 5px 0;
+}
+.color {
+	border-radius: 8px;
+	font-size: 0;
+	width: 100%;
+	height: 10px;
+	border: thin solid #9b9da7;
+	cursor: pointer;
 }
 
 /* ---------------------------------- Lightbox Styles  ---------------------------------- */
