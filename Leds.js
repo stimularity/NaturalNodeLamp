@@ -2,10 +2,12 @@
 
 
 	//Required Libraries
-	var SPI = require('spi'); //SPI for low level stuff
+	var SPI = require('pi-spi'); //SPI for low level stuff
+
+	var strip = SPI.initialize("/dev/spidev0.0");
 
 	this.pixelcount = 51; //Global Var, number of pixels in strip
-	var strip = new SPI.Spi('/dev/spidev0.0', function(){}); //Init SPI
+
 	var buff = new Buffer(this.pixelcount * 3 + 1); //Create Buffer that will eventually be written out
 	var emptybuff = new Buffer(this.pixelcount * 3 + 1); //Create Buffer that will eventually be written out
 	emptybuff.fill(0x0);
@@ -59,7 +61,8 @@
 		if(r >= 0 && r <= 255) red = r;
 		if(g >= 0 && g <= 255) green = g;
 		if(b >= 0 && b <= 255) blue = b;
-		strip.write(buff, emptybuff); //Write in Lovely Colors
+		strip.write(buff, function(){
+		}); //Write in Lovely Colors
 	}
 
 	function limitBrightness(r, g, b){

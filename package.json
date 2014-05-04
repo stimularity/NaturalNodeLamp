@@ -1,7 +1,6 @@
 {
   "name": "NaturalNodeLamp",
   "author": "Emu Mantoid",
-  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "forever start app.js"
@@ -15,7 +14,7 @@
     "ejs": "*",
     "bindings": "1.1.x",
     "forever": "0.10.x",
-    "node-sqlite3": "2.x.x",
+    "sqlite3": "2.x.x",
     "socket.io": "0.9.x",
     "spi": "0.x.x",
     "suncalc": "1.2.x",

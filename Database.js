@@ -1,6 +1,6 @@
 var fs = require("fs");
-var sqlite3 = require('node-sqlite3').verbose();
-var db = new sqlite3.Database('./Alarms.db');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');//('./Alarms.db');
 
 //Create Default database if you don't got one. 
 db.serialize(function(){
