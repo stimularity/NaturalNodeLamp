@@ -36,11 +36,19 @@
 	};
 
 	//Array of preset colors to fade through. 
+	// var phase = [ //Steps - 2000
+	// 	{r:0, g:0, b:0, numsteps: 1500}, //Pitch Black
+	// 	{r:0, g:25, b:50, numsteps: 1500}, //Dark Blue Morning
+	// 	{r:80, g:0, b:100, numsteps: 3000}, //Pink Sunrise
+	// 	{r:250, g:225, b:0 } //Blinding Yellow Sunbeams 
+	// ];
+
+	//Array of preset colors to fade through. 
 	var phase = [ //Steps - 2000
 		{r:0, g:0, b:0, numsteps: 1500}, //Pitch Black
-		{r:0, g:25, b:50, numsteps: 1500}, //Dark Blue Morning
-		{r:80, g:0, b:100, numsteps: 3000}, //Pink Sunrise
-		{r:250, g:225, b:0 } //Blinding Yellow Sunbeams 
+		{r:50, g:0, b:0, numsteps: 1500}, //Red Burning Skies
+		{r:0, g:100, b:0, numsteps: 3000}, //Kinda green, I guess
+		{r:0, g:200, b:255 } //Bright Blue
 	];
 
 	var i, tempcounter, rdelta, gdelta, bdelta, counter=0;

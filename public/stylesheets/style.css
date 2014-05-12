@@ -159,6 +159,10 @@ div#alarms {
 	#lightboxcore {
 		max-width: 420px;
 	}
+	.padbutton:hover, .lowerbutton:hover {
+	/*background-color: #DBDBDB;*/
+	box-shadow:none;
+}
 }
 
 
