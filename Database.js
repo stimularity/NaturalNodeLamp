@@ -1,5 +1,5 @@
 var fs = require("fs");
-var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3');//.verbose();
 var db = new sqlite3.Database(':memory:');//('./Alarms.db');
 
 //Create Default database if you don't got one. 
@@ -26,8 +26,8 @@ exports.getAlarms = function(cb){
 
 //Adds a new alarm to database
 exports.addAlarm = function(hour, minute, day, cb){
-	days = [0,0,0,0,0,0,0];
-	days[day] = 1;
+	days = [1,1,1,1,1,1,1]; //Set all days to active. 
+	//days[day] = 1; //Set alarm to active on current day. 
 	db.serialize(function(){
 		var stmt = db.prepare("INSERT INTO alarms (hour, minute, sun, mon, tue, wed, thu, fri, sat, comment, alarmtype, enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?)");
 		stmt.run(hour, minute, days[0], days[1], days[2], days[3], days[4], days[5], days[6], '', 'sunrise', 1).finalize(cb());

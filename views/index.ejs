@@ -42,7 +42,7 @@
 		<br />
 
 		<!-- Bar that changes color based on current RGB settings -->
-		<input id="color-picker" class="color {onImmediateChange:'updateColorPickerSelection(this);'}" value="66ff00">
+		<input id="color-picker" class="color {onImmediateChange:'updateColorPickerSelection(this);'}" value="000000">
 
 		<!-- Active Alarms Area -->
 		<div id="alarms"></div><!-- /alarms -->
@@ -143,11 +143,45 @@
 		document.getElementById('color-picker').color.fromRGB(r/255, g/255, b/255);
 	});
 
+	var background_colors = {
+		0:{'background':'#050009', 'text':'#357dff'},
+		1:{'background':'#050009', 'text':'#357dff'},
+		2:{'background':'#050009', 'text':'#357dff'},
+		3:{'background':'#050009', 'text':'#357dff'},
+		4:{'background':'#050009', 'text':'#357dff'},
+		5:{'background':'#FFFFFF', 'text':'#000000'}, //Brighter Colors
+		6:{'background':'#FFFFFF', 'text':'#000000'},
+		7:{'background':'#FFFFFF', 'text':'#000000'},
+		8:{'background':'#FFFFFF', 'text':'#000000'},
+		9:{'background':'#FFFFFF', 'text':'#000000'},
+		10:{'background':'#FFFFFF', 'text':'#000000'},
+		11:{'background':'#FFFFFF', 'text':'#000000'},
+		12:{'background':'#FFFFFF', 'text':'#000000'},
+		13:{'background':'#FFFFFF', 'text':'#000000'},
+		14:{'background':'#FFFFFF', 'text':'#000000'},
+		15:{'background':'#FFFFFF', 'text':'#000000'},
+		16:{'background':'#FFFFFF', 'text':'#000000'},
+		17:{'background':'#66d1f5', 'text':'#000000'},
+		18:{'background':'#3e7ab3', 'text':'#357dff'}, //Darker colors
+		19:{'background':'#005b8f', 'text':'#357dff'},
+		20:{'background':'#000000', 'text':'#357dff'},
+		21:{'background':'#000000', 'text':'#357dff'},
+		22:{'background':'#000000', 'text':'#357dff'},
+		23:{'background':'#000000', 'text':'#357dff'}
+	};
+
 
 	// -- Socket.io --
 
 	$(document).ready(function() {
-		
+
+		/**
+		 * Set Bacground color to match something close to the time of day.
+		 */
+		$('body')
+		.css( "background", background_colors[new Date().getHours()]['background'] )
+		.css('color', background_colors[new Date().getHours()]['text']);
+
 		/**
 		 * Get buttons and sliders from animations library.
 		 * Each animation has a set of graphical elements
@@ -157,14 +191,14 @@
 			$('#graphical').empty().append(data); //Empty Box and append button data
 			activateButtons(); //Bind actions to buttons
 			$('.controlpannel').hide();
-			$('#home').fadeIn(1000); //Show main pannel
+			$('#home').show(); //Show main pannel
 
 			//Activate tab and display proper pannel.
 			$('#guitabs li').click(function(){
 				$('#guitabs li').removeClass('active');
 				area = $(this).text();
 				$('.controlpannel').hide(); //Hide other pannels
-				$('#'+area).fadeIn(500);
+				$('#'+area).show();
 				$(this).addClass('active');
 			});
 		});
