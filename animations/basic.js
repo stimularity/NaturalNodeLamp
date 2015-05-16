@@ -68,7 +68,58 @@
 			alarm:true,
 			value:0
 		});
+		//
+		buttons.push({
+			title:'Yellow',
+			type:'button',
+			id:'solidyellow',
+			style:'btn-yellow',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Orange',
+			type:'button',
+			id:'solidorange',
+			style:'btn-orange',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Cyan',
+			type:'button',
+			id:'solidcyan',
+			style:'btn-cyan',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Purple',
+			type:'button',
+			id:'solidpurple',
+			style:'btn-purple',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'Pink',
+			type:'button',
+			id:'solidpink',
+			style:'btn-pink',
+			alarm:true,
+			value:0
+		});
+		buttons.push({
+			title:'White',
+			type:'button',
+			id:'solidwhite',
+			style:'btn-white',
+			alarm:true,
+			value:0
+		});
 
+		//roygbiv
+		//Red, Orange, Yellow, Green, Blue, Ingigo, Violet
 		return buttons;
 	};
 
@@ -90,6 +141,14 @@
 		if(id == 'solidred'){ leds.fillColor(255, 0, 0); }
 		if(id == 'solidgreen'){ leds.fillColor(0, 255, 0); }
 		if(id == 'solidblue'){ leds.fillColor(0, 0, 255); }
+		//More
+		if(id == 'solidyellow'){ leds.fillColor(255, 255, 0); }
+		if(id == 'solidcyan'){ leds.fillColor(0, 255, 255); }
+		if(id == 'solidpurple'){ leds.fillColor(255, 0, 255); }
+		//Even more
+		if(id == 'solidorange'){ leds.fillColor(255, 128, 0); }
+		if(id == 'solidpink'){ leds.fillColor(255, 0, 128); }
+		if(id == 'solidwhite'){ leds.fillColor(255, 255, 255); }
 	};
 
 	/**

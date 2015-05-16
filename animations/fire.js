@@ -11,8 +11,9 @@
 	exports.getInterface = function(){
 		buttons = [];
 		buttons.push({
-			title:'<b>Fire</b>',
+			title:'Fire',
 			type:'button', //Display class button
+			style:'fire-button', //Styles for the button
 			id:'fire', //Pass sunrise to interface. 
 			value:0, //No variation, only 30 min sunrise 
 			alarm:true //This action may be executed as an alarm.

@@ -165,7 +165,66 @@ div#alarms {
 }
 }
 
+.btn-yellow{
+	background-image: linear-gradient(to bottom, #ffff00, #aea800);
+	border:1px solid #ffff00;
+}
+.btn-yellow:hover, .btn-yellow:focus{
+	background-color: #aea800;
+}
+.btn-orange{
+	background-image: linear-gradient(to bottom, #ff8a00, #b75f00);
+	border:1px solid #ff8a00;
+}
+.btn-orange:hover, .btn-orange:focus{
+	background-color: #b75f00;
+}
+.btn-cyan{
+	background-image: linear-gradient(to bottom, #00ffff, #00a8b7);
+	border:1px solid #00ffff;
+}
+.btn-cyan:hover, .btn-cyan:focus{
+	background-color: #00a8b7;
+}
+.btn-purple{
+	background-image: linear-gradient(to bottom, #ff00ff, #860084);
+	border:1px solid #ff00ff;
+	color: #ffffff;
+}
+.btn-purple:hover, .btn-purple:focus{
+	background-color: #860084;
+	color: #ffffff;
+}
+.btn-pink{
+	background-image: linear-gradient(to bottom, #ffc5ff, #ff85fe);
+	border:1px solid #ffc5ff;
+}
+.btn-pink:hover, .btn-pink:focus{
+	background-color: #ff85fe;
+}
+.btn-white{
+	background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+	border:1px solid #ffffff;
+}
+.btn-white:hover, .btn-white:focus{
+	background-color: #ffffff;
+}
+.fire-button{
+	font-weight: bold;
+	color: #c36900;
+}
+.fire-button:hover, .fire-button:focus{
+	color: #ff0000;
+}
 
+
+/*.btn-{
+	background-image: linear-gradient(to bottom, #, #);
+	border:1px solid #;
+}
+.btn-:hover{
+	background-color: #;
+}*/
 
 
 

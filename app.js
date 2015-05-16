@@ -44,11 +44,18 @@ app.get('/', routes.index); //We currently ONLY need index route.
 app.get('/alarms', routes.alarms); //Exports alarm data to drowser
 app.get('/alarmentry', routes.alarmentry); //Displays functioning alarm entry pad
 app.get('/graphical', routes.graphical); //Displays buttons to select ringer style
-app.get('/alarmbuttons', routes.alarmbuttons); //Displays buttons 
+app.get('/alarmbuttons', routes.alarmbuttons); //Displays buttons
+
+//simple api for commant input
+app.get('/api/:input', function(req, res){
+  runAnimation(req.params.input, 0);
+  res.send('Running ' + req.params.input);
+});
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-  runAnimation('beam', 1); //To show its active.
+  runAnimation('beam', 2); //To show its active.
+  //runAnimation('fire-fly', 1);
 });
 
 
